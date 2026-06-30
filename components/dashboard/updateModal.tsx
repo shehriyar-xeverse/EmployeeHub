@@ -1,30 +1,56 @@
-import React from "react";
+
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
-import { useAddEmployeeMutation } from "@/store/employeeApi";
 import { EmployeeForm } from "@/types/employee";
 import { toast } from "sonner";
+import React, { useEffect } from "react";
+import { useUpdateEmployeeMutation } from "@/store/employeeApi";
 
-const NewEmploye = ({ setIsModalOpen }: any) => {
-  const [addEmployee] = useAddEmployeeMutation();
+const UpdateModal = ({setIsEditModal,employee}:any) => {
+    const [updateEmployee] = useUpdateEmployeeMutation()
+
   const {
     register,
     handleSubmit,
     reset,
   } = useForm<EmployeeForm>();
 
+
+
   const onSubmit = async (data: EmployeeForm) => {
-    try {
-      await addEmployee(data).unwrap();
-      reset();
-      setIsModalOpen(false);
-      toast.success("Employee Successfully Added", { position: "top-center" });
-    } catch (error:any) {
-      toast.error(error?.message || "Add Employee failed", { position: "top-center" });
-      console.log(error);
-    }
-  };
+  try {
+    console.log(employee.id);
+    const employeId = employee.id
+    console.log(data);
+
+    await updateEmployee({
+    id: employee.id,
+    updatedData: data,
+    }).unwrap();
+
+    
+    toast.success("Employee Successfully Updated", {
+      position: "top-center",
+    });
+    reset();
+    setIsEditModal(false);
+  } catch (error: any) {
+    toast.error(error.message, {position :'top-center'});
+    console.log(error);
+  }
+};
+
+  useEffect(() => {
+  if (employee) {
+    reset({
+      name: employee.name,
+      email: employee.email,
+      department: employee.department,
+      salary: employee.salary,
+    });
+  }
+}, [employee, reset]);
 
   return (
     <div>
@@ -32,11 +58,11 @@ const NewEmploye = ({ setIsModalOpen }: any) => {
         <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-gray-300">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-800">
-              Add New Employee
+              Update Employee
             </h2>
 
             <button
-              onClick={() => setIsModalOpen(false)}
+              onClick={() => setIsEditModal(false)}
               className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
             >
               <X className="w-5 h-5 text-gray-500" />
@@ -113,7 +139,7 @@ const NewEmploye = ({ setIsModalOpen }: any) => {
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => setIsEditModal(false)}
                 variant="outline"
                 className="flex-1 h-10 cursor-pointer"
               >
@@ -122,7 +148,8 @@ const NewEmploye = ({ setIsModalOpen }: any) => {
 
               <Button
                 type="submit"
-                className="flex-1 bg-teal-600 hover:bg-teal-700 text-white h-10 cursor-pointer"
+                className="flex-1 bg-teal-600 hover:bg-teal-700
+                 text-white h-10 cursor-pointer"
               >
                 Add Employee
               </Button>
@@ -134,4 +161,4 @@ const NewEmploye = ({ setIsModalOpen }: any) => {
   );
 };
 
-export default NewEmploye;
+export default UpdateModal;

@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import { Inputs } from "@/types/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useLoginUserMutation } from "@/store/userApi";
 
 const LoginForm = () => {
+  const [loginUser] = useLoginUserMutation();
   const {
     register,
     handleSubmit,
@@ -15,13 +17,22 @@ const LoginForm = () => {
   } = useForm<Inputs>();
   const router = useRouter();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Inputs) => {
     const email = data?.email;
     const password = data?.password;
-    console.log("Login attempt with:", { email, password });
+    try{
+    const response = await loginUser({
+      email,
+      password,
+    }).unwrap();
     toast.success("Login successful!", { position: "top-center" });
     router.replace("/dashboard");
     reset();
+    }catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message || "login failed", {
+        position: "top-center",
+      })}
   };
 
   return (

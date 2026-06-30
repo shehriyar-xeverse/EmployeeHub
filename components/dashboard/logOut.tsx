@@ -1,7 +1,5 @@
+"use client"
 import {
-  BadgeCheckIcon,
-  BellIcon,
-  CreditCardIcon,
   LogOutIcon,
 } from "lucide-react";
 
@@ -13,8 +11,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLogOutUserMutation } from "@/store/userApi";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function LogOutButton() {
+    const [logOutUser] = useLogOutUserMutation();
+      const router = useRouter();
+  
+    const logOut = async () => {
+    try {
+    await logOutUser().unwrap();
+    router.replace("/login");
+    toast.success("Successfully Logout" ,{
+      position: "top-center",
+    })
+  } catch (error) {
+    console.log(error);
+     toast.error("login failed", {
+      position: "top-center",
+    })}
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,9 +49,7 @@ export function LogOutButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="center">
         <DropdownMenuItem
-          onClick={() => {
-            window.location.href = "/login";
-          }}
+          onClick={logOut}
           className="cursor-pointer"
         >
           <LogOutIcon className="font-quicksand" />

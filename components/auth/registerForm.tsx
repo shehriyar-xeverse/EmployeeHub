@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { RegisterInputs } from "@/types/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useRegisterUserMutation } from "@/store/userApi";
 
 const RegisterForm = () => {
+  const [registerUser] = useRegisterUserMutation();
+
   const {
     register,
     handleSubmit,
@@ -17,10 +20,23 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: RegisterInputs) => {
     const { name, email, password } = data;
-    console.log("Register attempt with:", { name, email, password });
-    toast.success("Account created successfully!", { position: "top-center" });
-    router.replace("/login");
-    reset();
+    try {
+      const response = await registerUser({
+        name,
+        email,
+        password,
+      }).unwrap();
+      toast.success("User registered Successfully!", {
+        position: "top-center",
+      });
+      router.replace("/login");
+      reset();
+    } catch (error: any) {
+      console.log(error);
+      toast.error(error?.data?.message || "Registration failed", {
+        position: "top-center",
+      });
+    }
   };
 
   return (

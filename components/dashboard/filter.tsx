@@ -1,15 +1,7 @@
-import React from "react";
-import {
-  Plus,
-  Search,
-  Edit,
-  Trash2,
-  LogOut,
-  Users,
-  ArrowUpDown,
-  X,
-} from "lucide-react";
+import {  Plus,Search} from "lucide-react";
 import { Button } from "../ui/button";
+
+
 const Filter = ({ searchTerm, setSearchTerm, setIsModalOpen }: any) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">

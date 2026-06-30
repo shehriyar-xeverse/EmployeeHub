@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Stats from "@/components/dashboard/stats";
 import Employee from "@/components/dashboard/employee";
 import Filter from "@/components/dashboard/filter";
@@ -7,56 +7,26 @@ import NewEmploye from "@/components/dashboard/newEmploye";
 import Image from "next/image";
 import { LogOutButton } from "@/components/dashboard/logOut";
 import Link from "next/link";
+import { useGetAllEmployeesQuery } from "@/store/employeeApi";
 
-//data
-const mockEmployees = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john@example.com",
-    department: "Engineering",
-    salary: 75000,
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    department: "Marketing",
-    salary: 65000,
-  },
-  {
-    id: 3,
-    name: "Bob Johnson",
-    email: "bob@example.com",
-    department: "Sales",
-    salary: 70000,
-  },
-  {
-    id: 4,
-    name: "Alice Williams",
-    email: "alice@example.com",
-    department: "HR",
-    salary: 60000,
-  },
-  {
-    id: 5,
-    name: "Charlie Brown",
-    email: "charlie@example.com",
-    department: "Engineering",
-    salary: 80000,
-  },
-];
+
 
 const Dashboard = () => {
+  const { data, isLoading, error } = useGetAllEmployeesQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredEmployees = mockEmployees.filter(
-    (emp) =>
-      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.department.toLowerCase().includes(searchTerm.toLowerCase()),
+
+  const filteredEmployees = useMemo(() => {
+  if (!data) return [];
+  return data.filter((emp: any) =>
+    emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    emp.department.toLowerCase().includes(searchTerm.toLowerCase())
   );
+}, [data, searchTerm]);
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 font-quicksand">
@@ -81,13 +51,17 @@ const Dashboard = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Stats mockEmployees={mockEmployees} />
+        {/* <Stats mockEmployees={mockEmployees} /> */}
         <Filter
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           setIsModalOpen={setIsModalOpen}
         />
-        <Employee filteredEmployees={filteredEmployees} />
+        <Employee
+         filteredEmployees={filteredEmployees}
+         isLoading={isLoading}
+         error={error}
+          />
       </main>
 
       {/* Modal */}
