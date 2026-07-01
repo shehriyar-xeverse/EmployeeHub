@@ -1,232 +1,206 @@
-"use client"
-
-import { useDeleteEmployeeMutation } from "@/store/employeeApi";
-import { Edit, Trash, Users } from "lucide-react";
-import { toast } from "sonner";
-import { Spinner } from "../ui/spinner";
+"use client";
+import { Users, Mail, Building2, DollarSign, MapPin, Calendar, MoreVertical, User, Briefcase } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { avatars } from "@/lib/avatars";
 import { useState } from "react";
-import UpdateModal from "./updateModal";
 
-const Employee = ({ filteredEmployees, isLoading, error }: any) => {
-  const [deleteEmployee, {isLoading:deletingLoading}] =  useDeleteEmployeeMutation()
-  const [editModal, setIsEditModal] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState<any>(null);
+const Employee = ({ filteredEmployees, isLoading, error, viewMode , setIsModalOpen}: any) => {
+  const router = useRouter();
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
- const handleDelete = async (id: number) => {
-  try {
-    await deleteEmployee(id).unwrap();
-    toast.success("Employee Deleted Successfully", {position: "top-center"});
-  } catch (error) {
-    console.error(error);
-    toast.error("Delete Employee Failed", {position: "top-center",});
+  const getRandomAvatar = (id: number) => {
+    return avatars[id % avatars.length];
+  };
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return 'N/A';
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch {
+      return 'N/A';
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="bg-[#1a1a1a] rounded-2xl border border-gray-800/50 p-6 animate-pulse">
+            <div className="flex flex-col items-center">
+              <div className="w-20 h-20 rounded-full bg-gray-700"></div>
+              <div className="mt-4 h-5 bg-gray-700 rounded w-3/4"></div>
+              <div className="mt-2 h-4 bg-gray-700 rounded w-2/3"></div>
+              <div className="mt-3 flex gap-2">
+                <div className="h-6 bg-gray-700 rounded-full w-20"></div>
+                <div className="h-6 bg-gray-700 rounded-full w-20"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
-};
 
+  if (error) {
+    return (
+      <div className="bg-[#1a1a1a] rounded-2xl border border-red-500/20 p-12 text-center">
+        <div className="text-5xl mb-4">⚠️</div>
+        <h3 className="text-red-400 text-xl font-semibold">Failed to Load Employees</h3>
+        <p className="text-gray-400 mt-2">Please try refreshing the page</p>
+      </div>
+    );
+  }
+
+  if (filteredEmployees?.length === 0) {
+    return (
+      <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-16 text-center">
+        <div className="flex justify-center mb-4">
+          <div className="w-24 h-24 rounded-full bg-purple-500/10 flex items-center justify-center">
+            <Users className="w-12 h-12 text-purple-400" />
+          </div>
+        </div>
+        <h3 className="text-2xl font-semibold text-white mb-2">No Employees Found</h3>
+        <p className="text-gray-400 max-w-md mx-auto">
+        </p>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="mt-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all  cursor-pointer"
+        >
+          Add Employee
+        </button>
+      </div>
+    );
+  }
+
+// grid view
+  if (viewMode === "grid") {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filteredEmployees?.map((employee: any) => (
+          <div
+            key={employee.id}
+            onClick={() => router.push(`/employees/${employee.id}`)}
+            onMouseEnter={() => setHoveredId(employee.id)}
+            onMouseLeave={() => setHoveredId(null)}
+            className="group bg-gradient-to-br from-[#1a1a1a] to-[#121212] border border-gray-800/50 rounded-2xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/5 group-hover:via-purple-500/0 group-hover:to-purple-500/5 transition-all duration-500"></div>
+            
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <img
+                  src={getRandomAvatar(employee.id)}
+                  alt={employee.name}
+                  className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110"
+                />
+                {employee.position && (
+                  <div className="absolute -bottom-1 -right-1 z-20 w-7 h-7 bg-purple-600 rounded-full flex items-center justify-center border-2 border-[#1a1a1a]">
+                    <Briefcase className="w-3.5 h-3.5 text-white" />
+                  </div>
+                )}
+              </div>
+              
+              <h3 className="mt-4 text-lg font-semibold text-gray-200 group-hover:text-purple-400 transition-colors">
+                {employee.name}
+              </h3>
+              
+              {employee.position && (
+                <p className="text-sm text-gray-400 mt-0.5">{employee.position}</p>
+              )}
+              
+              <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                <Mail className="w-3.5 h-3.5" />
+                {employee.email}
+              </p>
+              
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs border border-purple-500/20 flex items-center gap-1">
+                  <Building2 className="w-3 h-3" />
+                  {employee.department}
+                </span>
+                <span className="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs border border-green-500/20 flex items-center gap-1">
+                  <DollarSign className="w-3 h-3" />
+                  ${employee.salary.toLocaleString()}
+                </span>
+              </div>
+
+              {employee.joinDate && (
+                <div className="mt-3 flex items-center gap-1 text-xs text-gray-500">
+                  <Calendar className="w-3 h-3" />
+                  Joined {formatDate(employee.joinDate)}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // List View
   return (
-    <div>
-
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="hidden md:block overflow-x-auto">
+    <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 overflow-hidden">
+      <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-[#0f0f0f] border-b border-gray-800/50">
             <tr>
-              <th className="px-6 py-4 text-left">Name</th>
-              <th className="px-6 py-4 text-left">Email</th>
-              <th className="px-6 py-4 text-left">Department</th>
-              <th className="px-6 py-4 text-left">Salary</th>
-              <th className="px-6 py-4 text-left">Actions</th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Employee</th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden sm:table-cell">Department</th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden md:table-cell">Position</th>
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-400 uppercase tracking-wider hidden lg:table-cell">Email</th>
+              <th className="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Salary</th>
+              <th className="px-6 py-4 text-right text-xs font-medium text-gray-400 uppercase tracking-wider hidden xl:table-cell">Joined</th>
             </tr>
           </thead>
-
-          <tbody>
-            {isLoading ? (
-              <tr>
-                <td colSpan={5} className="py-20">
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="w-10 h-10 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
-
-                    <p className="text-gray-500 font-medium">
-                      Loading employees...
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            ) : error ? (
-              <tr>
-                <td colSpan={5} className="py-20">
-                  <div className="flex flex-col items-center gap-3">
-                    <p className="text-red-600 text-lg font-semibold">
-                      Failed to load employees
-                    </p>
-
-                    <p className="text-gray-500">
-                      Please try again later.
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            ) : filteredEmployees?.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="py-20">
-                  <div className="flex flex-col items-center">
-                    <Users className="w-12 h-12 text-gray-300" />
-
-                    <h3 className="mt-4 text-lg font-semibold text-gray-700">
-                      No Employees Found
-                    </h3>
-
-                    <p className="text-gray-500 mt-2">
-                      There are no employees to display.
-                    </p>
-                  </div>
-                </td>
-              </tr>
-            ) : (
-              filteredEmployees?.map((employee: any) => (
-                <tr
-                  key={employee.id}
-                  className="border-b hover:bg-gray-50 transition"
-                >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-semibold">
-                        {employee.name.charAt(0).toUpperCase()}
-                      </div>
-
-                      <span className="font-medium">{employee.name}</span>
+          <tbody className="divide-y divide-gray-800/30">
+            {filteredEmployees?.map((employee: any) => (
+              <tr
+                key={employee.id}
+                onClick={() => router.push(`/employees/${employee.id}`)}
+                className="hover:bg-purple-600/5 transition-colors cursor-pointer group"
+              >
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={getRandomAvatar(employee.id)}
+                      alt={employee.name}
+                      className="w-10 h-10 rounded-full object-cover border-2 border-gray-700 group-hover:border-purple-500 transition-colors"
+                    />
+                    <div>
+                      <p className="font-medium text-white group-hover:text-purple-400 transition-colors">
+                        {employee.name}
+                      </p>
+                      <p className="text-sm text-gray-400 sm:hidden">{employee.department}</p>
                     </div>
-                  </td>
-
-                  <td className="px-6 py-4">{employee.email}</td>
-
-                  <td className="px-6 py-4">
-                    <span className="bg-teal-50 text-teal-700 px-3 py-1 rounded-full text-xs">
-                      {employee.department}
-                    </span>
-                  </td>
-
-                  <td className="px-6 py-4 font-semibold">
-                    ${employee.salary.toLocaleString()}
-                  </td>
-
-                  <td className="px-6 py-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => {
-                          setSelectedEmployee(employee);
-                          setIsEditModal(true);
-                        }}
-                        className="p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 cursor-pointer"
-                      >
-                        <Edit size={18} />
-                      </button>
-
-                      <button
-                      onClick={() => handleDelete(employee.id)}
-                      className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 cursor-pointer">
-                       {deletingLoading ? <Spinner  className="w-4 h-4 text-gray-900" />  :<Trash size={18} /> } 
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
+                  </div>
+                </td>
+                <td className="px-6 py-4 hidden sm:table-cell">
+                  <span className="text-gray-300">{employee.department}</span>
+                </td>
+                <td className="px-6 py-4 hidden md:table-cell">
+                  <span className="text-gray-400 text-sm">{employee.position || '—'}</span>
+                </td>
+                <td className="px-6 py-4 hidden lg:table-cell">
+                  <span className="text-gray-400 text-sm">{employee.email}</span>
+                </td>
+                <td className="px-6 py-4 text-right">
+                  <span className="text-white font-semibold">${employee.salary.toLocaleString()}</span>
+                </td>
+                <td className="px-6 py-4 text-right hidden xl:table-cell">
+                  <span className="text-gray-400 text-sm">{formatDate(employee.joinDate)}</span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
-
-
-      <div className="md:hidden p-4">
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-16 gap-4">
-            <div className="w-10 h-10 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
-
-            <p className="text-gray-500">Loading employees...</p>
-          </div>
-        ) : error ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <p className="text-red-600 text-lg font-semibold">
-              Failed to load employees
-            </p>
-
-            <p className="text-gray-500 mt-2">
-              Please try again later.
-            </p>
-          </div>
-        ) : filteredEmployees?.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <Users className="w-12 h-12 text-gray-300" />
-
-            <h3 className="mt-4 text-lg font-semibold">
-              No Employees Found
-            </h3>
-
-            <p className="text-gray-500 mt-2">
-              There are no employees to display.
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {filteredEmployees?.map((employee: any) => (
-              <div key={employee.id} className="border rounded-xl p-4 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center font-bold">
-                    {employee.name.charAt(0).toUpperCase()}
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold">{employee.name}</h3>
-                    <p className="text-sm text-gray-500">{employee.email}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Department</span>
-
-                    <span className="bg-teal-100 text-teal-700 px-2 py-1 rounded">
-                      {employee.department}
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Salary</span>
-
-                    <span className="font-semibold">
-                      ${employee.salary.toLocaleString()}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 mt-5">
-                  <button
-                  onClick={() => {
-                    setSelectedEmployee(employee);
-                    setIsEditModal(true);
-                  }}
-                  className="flex-1 bg-blue-50 text-blue-600 py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-blue-100 cursor-pointer"
-                >
-                  <Edit size={18} />
-                  Edit
-                </button>
-                  <button
-                  onClick={() => handleDelete(employee.id)}
-                  className="flex-1 bg-red-50 text-red-600 py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-red-100 cursor-pointer">
-                  {deletingLoading ? (<Spinner  className="w-4 h-4 text-gray-900" />) : "Delete"}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
     </div>
-
-    {editModal && (<UpdateModal setIsEditModal={setIsEditModal} employee={selectedEmployee}/>)}
-    </div>
-
   );
 };
 
-
-export default Employee
+export default Employee;

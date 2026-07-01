@@ -7,6 +7,9 @@ export const employeeApi = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
     credentials: "include",
   }),
+  refetchOnFocus: false,
+  refetchOnReconnect: false,
+  keepUnusedDataFor: 300,
 
   tagTypes: ["Employee"],
 
@@ -24,9 +27,10 @@ export const employeeApi = createApi({
     //fetchSingleEmployee
     getSingleEmployee: builder.query({
       query: (id) => ({
-        url: `/getSingle-Employee/:${id}`,
+        url: `/getSingle-Employee/${id}`,
       }),
       providesTags: ["Employee"],
+      keepUnusedDataFor: 300,
     }),
 
     // get ALL Employees

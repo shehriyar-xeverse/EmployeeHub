@@ -3,32 +3,34 @@ import { NextRequest, NextResponse } from "next/server";
 export function proxy(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
-  const { pathname } = request.nextUrl;
+  const pathname = request.nextUrl.pathname;
 
-  const isLoginPage = pathname === "/login";
-  const isRegisterPage = pathname === "/register";
+  const authRoutes = ["/login", "/register"];
 
-  const isDashboard = pathname.startsWith("/dashboard");
-  const isHome = pathname === "/";
+  const isAuthRoute = authRoutes.includes(pathname);
 
-  if (token) {
-    if (isLoginPage || isRegisterPage || isHome) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+  const isProtectedRoute =
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/employees");
 
-    return NextResponse.next();
+  // Logged-in user
+  if (token && isAuthRoute) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  if (!token) {
-    if (isDashboard || isHome) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-    return NextResponse.next();
+  // Guest user
+  if (!token && isProtectedRoute) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/login", "/register", "/dashboard/:path*"],
+  matcher: [
+    "/login",
+    "/register",
+    "/dashboard/:path*",
+    "/employees/:path*",
+  ],
 };
