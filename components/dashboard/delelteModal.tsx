@@ -7,28 +7,20 @@ import { useDeleteEmployeeMutation } from '@/store/employeeApi';
 import { Spinner } from '../ui/spinner';
 import { useRouter } from 'next/navigation';
 
-const DeleteModal = ({ setIsDeleteModalOpen, employee }: any) => {
+const DeleteModal = ({ setIsDeleteModalOpen, employee,setIsDeleting,isDeleting}: any) => {
   const [deleteEmployee, { isLoading: deletingLoading }] = useDeleteEmployeeMutation();
   const router = useRouter();
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteEmployee(id).unwrap();
-      router.push('/dashboard');
-      toast.success("Employee Deleted Successfully", { 
-        position: "top-center",});
-    } catch (error) {
-      console.error(error);
-      toast.error("Delete Employee Failed", { 
-        position: "top-center",
-        style: {
-          background: '#1a1a1a',
-          border: '1px solid #374151',
-          color: '#fff',
-        },
-      });
-    }
-  };
+ const handleDelete = async (id: number) => {
+  try {
+    setIsDeleting(true)
+    await deleteEmployee(id).unwrap();
+    toast.success("Employee Deleted Successfully", {position : 'top-center'});
+    router.replace("/dashboard");
+  } catch (error) {
+    toast.error("Delete Employee Failed", {position : 'top-center'});
+  }
+};
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
@@ -52,16 +44,16 @@ const DeleteModal = ({ setIsDeleteModalOpen, employee }: any) => {
           <div className="flex gap-3">
             <Button
               onClick={() => setIsDeleteModalOpen(false)}
-              className="flex-1 px-4 py-3 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl text-gray-300 font-medium transition-colors cursor-pointer"
+              className="flex-1 px-4 py-3 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl text-gray-300 font-medium transition-colors cursor-pointer h-12"
             >
               Cancel
             </Button>
             <Button
               onClick={() => handleDelete(employee?.id)}
               disabled={deletingLoading}
-              className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 rounded-xl text-white font-medium transition-all shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+              className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 rounded-xl text-white font-medium transition-all shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer h-12"
             >
-              {deletingLoading ? (
+              {deletingLoading  || isDeleting ? (
                 <>
                   <Spinner className="w-4 h-4 text-white" />
                   Deleting...

@@ -17,6 +17,7 @@ export const userApi = createApi({
         method: "POST",
         body: userData,
       }),
+      invalidatesTags: ["User"],
     }),
 
     loginUser: builder.mutation({
@@ -25,26 +26,33 @@ export const userApi = createApi({
         method: "POST",
         body: loginData,
       }),
+      invalidatesTags: ["User"],
     }),
 
    logOutUser: builder.mutation<void, void>({
   query: () => ({
     url: "/logout",
     method: "POST",
+     providesTags: ["User"],
   }),
 }),
 
     getUsers: builder.query({
-      query: () => ({
-        url: "/users",
-      }),
+      query: () => "/users",
       providesTags: ["User"],
     }),
 
+    // get Profile 
+    getProfile: builder.query({
+      query: () => "/profile",
+      providesTags: ["User"],
+
+    }),
   }),
 });
 
 export const {
+  useGetProfileQuery,
   useRegisterUserMutation,
   useLoginUserMutation,
   useGetUsersQuery,

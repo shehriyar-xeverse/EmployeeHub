@@ -21,7 +21,7 @@ export const employeeApi = createApi({
         method: "POST",
         body: employeeData,
       }),
-      invalidatesTags: ["Employee"],
+      // invalidatesTags: ["Employee"],
     }),
 
     //fetchSingleEmployee
@@ -29,8 +29,8 @@ export const employeeApi = createApi({
       query: (id) => ({
         url: `/getSingle-Employee/${id}`,
       }),
-      providesTags: ["Employee"],
-      keepUnusedDataFor: 300,
+      // providesTags: ["Employee"],
+      // keepUnusedDataFor: 300,
     }),
 
     // get ALL Employees
@@ -38,7 +38,7 @@ export const employeeApi = createApi({
       query: () => ({
         url: `/getAllEmployees`,
       }),
-      providesTags: ["Employee"],
+      // providesTags: ["Employee"],
     }),
 
     //deleteEmployee
@@ -47,7 +47,7 @@ export const employeeApi = createApi({
         url: `/delete-Employee/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Employee"],
+      // invalidatesTags: ["Employee"],
     }),
 
     // update Employee
@@ -57,7 +57,7 @@ export const employeeApi = createApi({
         method: "PUT",
         body: updatedData,
       }),
-      invalidatesTags: ["Employee"],
+      // invalidatesTags: ["Employee"],
     }),
   }),
 });

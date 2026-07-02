@@ -5,7 +5,6 @@ import Header from '@/components/common/header';
 import Filter from '@/components/dashboard/filter';
 import Employee from '@/components/dashboard/employee';
 import NewEmploye from '@/components/dashboard/newEmploye';
-import { Loader2, Users, Building2, DollarSign, TrendingUp } from 'lucide-react';
 import Stats from '@/components/dashboard/stats';
 
 const Dashboard = () => {
@@ -53,7 +52,7 @@ const Dashboard = () => {
     return employees;
   }, [data, searchTerm, sortOrder]);
 
-  // Statistics
+  // stats
   const stats = useMemo(() => {
     if (!data) return null;
     const total = data.length;
@@ -84,7 +83,7 @@ const maxSalary =
           <p className="text-gray-400 mb-6">We couldn't fetch your employee data. Please try again.</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors"
+            className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-colors  cursor-pointer"
           >
             Retry
           </button>
@@ -94,7 +93,7 @@ const maxSalary =
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand z-30  ">
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

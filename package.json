@@ -22,6 +22,7 @@
     "react-redux": "^9.3.0",
     "select": "^1.1.2",
     "shadcn": "^4.12.0",
+    "socket.io-client": "^4.8.3",
     "sonner": "^2.0.7",
     "styled-components": "^6.4.3",
     "tailwind-merge": "^3.6.0",

@@ -33,6 +33,7 @@ const LoginForm = () => {
       toast.success("Welcome back!", { 
       position: "top-center"});
       router.push("/dashboard");
+      router.refresh();
     } catch (error: any) {
       console.log(error);
       toast.error(error?.data?.message || "Login failed", {position: "top-center" })
