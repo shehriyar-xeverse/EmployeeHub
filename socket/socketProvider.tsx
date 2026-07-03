@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { socket } from "./socket";
 import { employeeApi } from "@/store/employeeApi";
 import { useAppDispatch } from "@/hooks/useDispatch";
+import { adminApi } from "@/store/admin";
 
 export default function SocketProvider({
   children,
@@ -14,10 +15,10 @@ export default function SocketProvider({
   useEffect(() => {
     socket.connect();
     socket.on("connect", () => {
-      console.log("Socket Connected", socket.id);
+      // console.log("Socket Connected", socket.id);
     });
     socket.on("disconnect", () => {
-      console.log("Socket disconnected", socket.id);
+      // console.log("Socket disconnected", socket.id);
     });
 
     // for add employee
@@ -81,6 +82,20 @@ export default function SocketProvider({
         ),
       );
     });
+
+    // Change Admin Profile Image 
+    socket.on("changeAdminImage", (profile_image) => {
+       dispatch(
+        adminApi.util.updateQueryData(
+          "AdminProfile",
+          undefined,
+          (draft) => {
+            draft.profile_image = profile_image;
+          }
+        )
+      );
+    });
+
 
     return () => {
       socket.off("connect");

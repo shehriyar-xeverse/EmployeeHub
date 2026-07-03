@@ -3,6 +3,7 @@
   email: string;
   department: string;
   salary: number;
+  employee_image : any,
 };
 
 

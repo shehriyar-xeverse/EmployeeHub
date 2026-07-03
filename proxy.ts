@@ -5,22 +5,23 @@ export function proxy(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  const authRoutes = ["/login", "/register"];
+  const authRoutes = ["/admin-login", "/admin-register"];
 
   const isAuthRoute = authRoutes.includes(pathname);
 
   const isProtectedRoute =
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/employees");
+    pathname.startsWith("/admin-dashboard") ||
+    pathname.startsWith("/admin-employees");
 
-  // Logged-in user
+  // Logged-in Admin
   if (token && isAuthRoute) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
   }
 
-  // Guest user
+  // Guest Admin
   if (!token && isProtectedRoute) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    
+    return NextResponse.redirect(new URL("/admin-employees", request.url));
   }
 
   return NextResponse.next();
@@ -28,9 +29,9 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/login",
-    "/register",
-    "/dashboard/:path*",
-    "/employees/:path*",
+    "/admin-login",
+    "/admin-register",
+    "/admin-dashboard/:path*",
+    "/admin-employees/:path*",
   ],
 };
