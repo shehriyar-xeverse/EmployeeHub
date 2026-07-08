@@ -4,6 +4,7 @@ import { socket } from "./socket";
 import { employeeApi } from "@/store/employeeApi";
 import { useAppDispatch } from "@/hooks/useDispatch";
 import { adminApi } from "@/store/admin";
+import { employeeProfileApi } from "@/store/employeeProfile";
 
 export default function SocketProvider({
   children,
@@ -84,17 +85,17 @@ export default function SocketProvider({
     });
 
     // Change Admin Profile Image 
-    socket.on("changeAdminImage", (profile_image) => {
-       dispatch(
-        adminApi.util.updateQueryData(
-          "AdminProfile",
-          undefined,
-          (draft) => {
-            draft.profile_image = profile_image;
-          }
-        )
-      );
-    });
+      // socket.on("changeAdminImage", (profile_image) => {
+      //    dispatch(
+      //     adminApi.util.updateQueryData(
+      //       "AdminProfile",
+      //       undefined,
+      //       (draft) => {
+      //         draft.profile_image = profile_image;
+      //       }
+      //     )
+      //   );
+      // });
 
 
     return () => {

@@ -5,18 +5,21 @@ import { useForm } from "react-hook-form";
 import { Inputs } from "@/types/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useLoginAdminMutation } from "@/store/admin";
 import {  Mail, Lock, Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-const LoginForm = () => {
-  const [loginUser] = useLoginAdminMutation();
+const LoginForm = ({
+ loginUser,
+navigation,
+singUpLink,
+heading
+}:any) => {
+
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Inputs>();
   const router = useRouter();
@@ -32,7 +35,7 @@ const LoginForm = () => {
       }).unwrap();
       toast.success("Welcome back!", { 
       position: "top-center"});
-      router.push("/admin-dashboard");
+      router.push(navigation);
       router.refresh();
     } catch (error: any) {
       console.log(error);
@@ -44,7 +47,6 @@ const LoginForm = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8 font-quicksand relative overflow-hidden">
-      {/* Background Decorations */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl"></div>
@@ -65,7 +67,7 @@ const LoginForm = () => {
              {/* Logo/Brand */}
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-teal-400 bg-clip-text text-transparent">
-            Welcome Back
+            Welcome {heading}
           </h2>
           <p className="mt-2 text-gray-400 text-sm">Sign in to manage your workforce</p>
         </div>
@@ -163,7 +165,7 @@ const LoginForm = () => {
               <p className="text-sm text-gray-400">
                 Don't have an account?{" "}
                 <Link
-                  href="/admin-register"
+                  href={singUpLink}
                   className="font-medium text-purple-400 hover:text-purple-300 transition-colors hover:underline inline-flex items-center gap-1"
                 >
                   Create one

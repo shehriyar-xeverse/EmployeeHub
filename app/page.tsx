@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const cookieStore = await cookies();
 
-  const token = cookieStore.get("token")?.value;
+  const token = cookieStore.get("employeeToken")?.value;
 
   if (token) {
-    redirect("/admin-dashboard");
+    redirect("/employee-dashboard");
   }
 
-  redirect("/admin-login");
+  redirect("/login");
 }

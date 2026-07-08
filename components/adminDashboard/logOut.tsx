@@ -1,28 +1,16 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useAdminProfileQuery } from "@/store/admin";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ProfileSidebar } from "../adminProfile/profileSidebar";
 
-export function LogOutButton() {
-  const { 
-    data: Profile,
-  error,
-  isLoading,
-  isFetching, } = useAdminProfileQuery(undefined);
+export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
- console.log({
-  Profile,
-  error,
-  isLoading,
-  isFetching,
-});
 
   useEffect(() => {
     setMounted(true);
@@ -113,6 +101,9 @@ export function LogOutButton() {
             onClose={() => setIsOpen(false)}
             userData={userData}
             initials={initials}
+            logOutUser={logOutUser} 
+            navigate={navigate}
+            updateProfileImg={updateProfileImg}
           />,
           document.body,
         )}

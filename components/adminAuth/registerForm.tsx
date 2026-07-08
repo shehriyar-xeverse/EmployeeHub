@@ -9,11 +9,9 @@ import { useRegisterAdminMutation } from "@/store/admin";
 import { User, Mail, Lock, Eye, EyeOff, ArrowRight, Sparkles, Check, Shield, Users } from "lucide-react";
 import { useState } from "react";
 
-const RegisterForm = () => {
-  const [registerUser] = useRegisterAdminMutation();
+const RegisterForm = ({navigation,registerUser,loginLink,heading}:any) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [agreeTerms, setAgreeTerms] = useState(false);
 
   const {
     register,
@@ -36,7 +34,7 @@ const RegisterForm = () => {
       toast.success("Account created successfully!", {
         position: "top-center",
       });
-      router.push("/admin-login");
+      router.push(navigation);
     } catch (error: any) {
       console.log(error);
       toast.error(error?.data?.message || "Registration failed", {position: "top-center",});
@@ -65,7 +63,7 @@ const RegisterForm = () => {
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] p-8 rounded-2xl border border-gray-800/50 shadow-2xl shadow-purple-500/5 backdrop-blur-sm max-h-[90vh] ">
           <div className="text-center mb-8">
           <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-teal-400 bg-clip-text text-transparent">
-            Create Account
+            Create Account <span className="text-[12px]">{heading}</span>
           </h2>
           <p className="mt-2 text-gray-400 text-sm">Join us and start managing your team</p>
         </div>
@@ -196,7 +194,7 @@ const RegisterForm = () => {
               <p className="text-sm text-gray-400">
                 Already have an account?{" "}
                 <Link
-                  href="/admin-login"
+                  href={loginLink}
                   className="font-medium text-purple-400 hover:text-purple-300 transition-colors hover:underline inline-flex items-center gap-1"
                 >
                   Sign in

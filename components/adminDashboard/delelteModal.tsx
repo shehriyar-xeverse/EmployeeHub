@@ -14,7 +14,11 @@ const DeleteModal = ({ setIsDeleteModalOpen, employee,setIsDeleting,isDeleting}:
  const handleDelete = async (id: number) => {
   try {
     setIsDeleting(true)
-    await deleteEmployee(id).unwrap();
+    const response = await deleteEmployee(id).unwrap();
+    if(response.error){
+      console.log("Delete Employee Failed",response?.error)
+      return
+    }
     toast.success("Employee Deleted Successfully", {position : 'top-center'});
     router.replace("/admin-dashboard");
   } catch (error) {

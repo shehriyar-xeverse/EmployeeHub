@@ -8,6 +8,8 @@ import { formatDate } from "../common/formatDate";
 
 const EmployeeTable = ({filteredEmployees}:any) => {
     const router = useRouter()
+
+   
    
    
 
@@ -34,9 +36,9 @@ const EmployeeTable = ({filteredEmployees}:any) => {
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                      {employee?.employee_image ? (
+                      {employee?.profile_image? (
                                           <Image
-                                         src={employee?.employee_image  || '/userAvatar.png'}
+                                         src={employee?.profile_image  || '/userAvatar.png'}
                                          alt={employee.name}
                                          width={200}
                                          height={200}

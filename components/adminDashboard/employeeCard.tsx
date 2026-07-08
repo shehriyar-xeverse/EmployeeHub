@@ -25,9 +25,9 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                  <div className="relative">
                    <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                   {employee?.employee_image ? (
+                   {employee?.profile_image ? (
                       <Image
-                     src={employee?.employee_image  || '/userAvatar.png'}
+                     src={employee?.profile_image  || '/userAvatar.png'}
                      alt={employee.name}
                      width={200}
                      height={200}

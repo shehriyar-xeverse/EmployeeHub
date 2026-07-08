@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { LogOutButton } from '../adminDashboard/logOut';
 
-const Header = () => {
+
+const Header = ({Profile,logOutUser,navigate,updateProfileImg}:any) => {
   return (
     <header className="bg-gradient-to-r from-[#0f0f0f] to-[#1a1a1a] border-b border-gray-800/80 sticky top-0 z-40 backdrop-blur-xl bg-opacity-90">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +28,12 @@ const Header = () => {
           </Link>
           
           <div className="flex items-center gap-6">
-            <LogOutButton />
+            <LogOutButton
+            Profile={Profile}
+            logOutUser={logOutUser}
+            navigate={navigate}
+            updateProfileImg={updateProfileImg}
+            />
           </div>
         </div>
       </div>

@@ -6,12 +6,13 @@ import {
   CalendarIcon,
   ChevronRightIcon,
   Building2Icon,
-  BriefcaseIcon,
 } from "lucide-react";
 import { formatDate } from "../common/formatDate";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const UserDetails = ({userData,logOut}:any) => {
+  const adminProfile  = true
   return (
     <>
       <div className="space-y-4">
@@ -67,18 +68,12 @@ const UserDetails = ({userData,logOut}:any) => {
                     </div>
                   )}
     
-                  {userData?.position && (
-                    <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-purple-500/10 rounded-lg flex-shrink-0">
-                          <BriefcaseIcon className="w-4 h-4 text-purple-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs text-gray-500 uppercase tracking-wider font-quicksand">Position</p>
-                          <p className="text-sm text-gray-200 font-medium truncate font-quicksand">{userData.position}</p>
-                        </div>
-                      </div>
-                    </div>
+                  {adminProfile && (
+                    <Link 
+                    className="w-full h-8  bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300  text-white"
+                    href="/admin-notification">
+                      Go to Notifications
+                      </Link>
                   )}
                 </div>
     

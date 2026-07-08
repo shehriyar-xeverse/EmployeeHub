@@ -15,7 +15,7 @@ import {
 import { EmployeeForm } from "@/types/employee";
 import { toast } from "sonner";
 
-const AddEmployeeModal = ({ setIsModalOpen, onSuccess,addEmployee,isLoading,data }: any) => {
+const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,data }: any) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const Id = data?.data?.id;
@@ -54,6 +54,7 @@ const AddEmployeeModal = ({ setIsModalOpen, onSuccess,addEmployee,isLoading,data
 
   const onSubmit = async (data: EmployeeForm) => {
     try {
+      // setIsLoading(true)  
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
@@ -61,8 +62,8 @@ const AddEmployeeModal = ({ setIsModalOpen, onSuccess,addEmployee,isLoading,data
       formData.append("salary", data.salary.toString());
       formData.append("employee_image", imageFile!);
       formData.append("created_by_id", Id);
-      formData.append("approved_by", Id);
-      await addEmployee(formData).unwrap();
+      await addEmployeeReq(formData).unwrap();
+      // setIsLoading(false)
       reset();
       removeImage();
       setIsModalOpen(false);
@@ -82,9 +83,9 @@ const AddEmployeeModal = ({ setIsModalOpen, onSuccess,addEmployee,isLoading,data
         <div className="flex items-center justify-between p-5 border-b border-gray-800/50">
           <div>
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-              Add New Employee
+              Create Employee Request
             </h2>
-            <p className="text-sm text-gray-400">Fill in the details to add a new team member</p>
+            <p className="text-sm text-gray-400">Fill in the details for employee request </p>
           </div>
           <Button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-gray-800/50 rounded-xl">
             <X className="w-5 h-5 text-gray-400 hover:text-white" />
@@ -278,4 +279,4 @@ const AddEmployeeModal = ({ setIsModalOpen, onSuccess,addEmployee,isLoading,data
   );
 };
 
-export default AddEmployeeModal;
+export default CreateEmployeeReq;

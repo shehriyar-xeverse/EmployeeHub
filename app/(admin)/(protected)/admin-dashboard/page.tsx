@@ -1,14 +1,19 @@
 "use client";
 import { useMemo, useState, useEffect } from 'react';
-import { useGetAllEmployeesQuery } from '@/store/employeeApi';
+import { useAddEmployeeMutation, useGetAllEmployeesQuery } from '@/store/employeeApi';
 import Header from '@/components/common/header';
 import Filter from '@/components/adminDashboard/filter';
 import Employee from '@/components/adminDashboard/employee';
 import AddEmployeeModal from '@/components/adminDashboard/addEmployee'
 import Stats from '@/components/adminDashboard/stats';
 import ErrorInterface from '@/components/adminDashboard/errorInterface';
+import { useAdminProfileQuery, useLogOutAdminMutation, useUpdateProfileImgMutation } from '@/store/admin';
 
 const Dashboard = () => {
+  const [addEmployee, { isLoading:Adding }] = useAddEmployeeMutation();
+    const { data:Profile } = useAdminProfileQuery(undefined);
+  const [updateProfileImg] = useUpdateProfileImgMutation()
+  const [logOutUser] = useLogOutAdminMutation();
   const { data, isLoading, error } = useGetAllEmployeesQuery(undefined);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +26,7 @@ const Dashboard = () => {
   useEffect(() => {
     setAnimateStats(true);
   }, []);
+
 
   const filteredEmployees = useMemo(() => {
     if (!data) return [];
@@ -78,7 +84,12 @@ const maxSalary =
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand z-30  ">
-      <Header />
+          <Header
+      Profile={Profile}
+      logOutUser={logOutUser}
+      navigate={'/admin-login'}
+      updateProfileImg={updateProfileImg}
+      />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {stats &&  <Stats  stats={stats} animateStats={animateStats} />}
@@ -107,6 +118,9 @@ const maxSalary =
       {isModalOpen && (
         <AddEmployeeModal
           setIsModalOpen={setIsModalOpen} 
+          addEmployee={addEmployee}
+          isLoading={Adding}
+          data={Profile}
         />
       )}
     </div>

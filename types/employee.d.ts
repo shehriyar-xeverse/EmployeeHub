@@ -12,4 +12,8 @@ export type ProfileSidebarProps = {
   onClose: () => void;
   userData: any;
   initials: string;
+  logOutUser : any,
+  navigate : string,
+  updateProfileImg? : any,
+  Updating?  : any
 }

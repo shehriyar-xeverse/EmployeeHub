@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { useUpdateEmployeeMutation } from "./employeeApi";
+
 
 export const adminApi = createApi({
   reducerPath: "adminApi",
@@ -38,7 +38,7 @@ export const adminApi = createApi({
     }),
 
 
-    // get All asmins
+    // get All admins
     getAdmins: builder.query({
       query: () => "/admins",
       providesTags: ["Admin"],
@@ -60,18 +60,12 @@ export const adminApi = createApi({
         method: "PUT",
         body: image,
       }),
-      // invalidatesTags: ["Admin"],
+      invalidatesTags: ["Admin"],
     }),
   }),
 });
 
 
-//  useGetProfileQuery,
-//   useRegisterUserMutation,
-//   useLoginUserMutation,
-//   useGetUsersQuery,
-//   useLogOutUserMutation,
-//   useUpdateProfileImgMutation
 
 export const {
   useRegisterAdminMutation,
