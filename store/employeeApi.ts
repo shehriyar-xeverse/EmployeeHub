@@ -71,6 +71,22 @@ export const employeeApi = createApi({
      
     }),
 
+
+     deleteEmployeeReq: builder.mutation({
+      query: (id) => ({
+        url: `/delete-EmployeeReq/${id}`,
+        method: "DELETE",
+      }),
+      // invalidatesTags: ["Employee"],
+    }),
+
+
+     // get Employee Own Request 
+    employeeRequest: builder.query({
+      query: () => "/employee-Request",
+      // providesTags: ["EmployeeProfile"],
+    }),
+
   }),
 });
 
@@ -82,5 +98,7 @@ export const {
   useDeleteEmployeeMutation,
   useUpdateEmployeeMutation,
   // For Emolyeee
-  useAddEmployeeReqMutation
+  useAddEmployeeReqMutation,
+  useDeleteEmployeeReqMutation,
+  useEmployeeRequestQuery
 } = employeeApi;

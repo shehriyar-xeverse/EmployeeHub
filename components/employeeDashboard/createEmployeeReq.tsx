@@ -19,10 +19,8 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const Id = data?.data?.id;
-
-
-
-  
+  const userEmail =  data?.data?.email;
+ 
 
   const {
     register,
@@ -54,7 +52,10 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
 
   const onSubmit = async (data: EmployeeForm) => {
     try {
-      // setIsLoading(true)  
+      if(userEmail !== data.email){
+        toast.error("User email & Employee does not match", {position : 'top-center'})
+        return
+      }
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
@@ -63,7 +64,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
       formData.append("employee_image", imageFile!);
       formData.append("created_by_id", Id);
       await addEmployeeReq(formData).unwrap();
-      // setIsLoading(false)
       reset();
       removeImage();
       setIsModalOpen(false);
@@ -269,7 +269,7 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
                   Adding...
                 </>
               ) : (
-                "Add Employee"
+                "Create Request"
               )}
             </Button>
           </div>

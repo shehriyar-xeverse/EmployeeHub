@@ -64,9 +64,9 @@ const EmployeeCard = ({
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
             {/* <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-3xl font-bold ring-4 ring-purple-500/20 group-hover:ring-purple-500/40 transition-all"> */}
-            {employee?.employee_image ? (
+            {employee?.profile_image ? (
               <Image
-                src={employee?.employee_image || "/userAvatar.png"}
+                src={employee?.profile_image || "/userAvatar.png"}
                 alt={employee.name}
                 width={200}
                 height={200}

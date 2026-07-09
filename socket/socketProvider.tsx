@@ -5,6 +5,7 @@ import { employeeApi } from "@/store/employeeApi";
 import { useAppDispatch } from "@/hooks/useDispatch";
 import { adminApi } from "@/store/admin";
 import { employeeProfileApi } from "@/store/employeeProfile";
+import { notificationApi } from "@/store/notifications";
 
 export default function SocketProvider({
   children,
@@ -22,6 +23,8 @@ export default function SocketProvider({
       // console.log("Socket disconnected", socket.id);
     });
 
+
+    
     // for add employee
     socket.on("employeeCreated", (employee) => {
       dispatch(
@@ -97,6 +100,46 @@ export default function SocketProvider({
       //   );
       // });
 
+
+    // ***************** For Employe Requests APIs ***********************
+
+// 1. Ensure your socket payload delivers both employee and notification
+socket.on("reqEmployee", ({ employee, notification }) => {
+    console.log("employee",employee)
+    dispatch(
+        employeeApi.util.updateQueryData(
+            "employeeRequest",
+            undefined,
+             (draft:any) => {
+              console.log("draf data",draft)
+            draft.data = employee;
+        }
+
+        )
+    );
+
+       
+    
+
+    // Notification Cache Updates (Uncommented and Fixed)
+    // dispatch(
+    //     notificationApi.util.updateQueryData(
+    //         "getNotifications",
+    //         undefined,
+    //         (draft) => {
+    //             // Safely handle cases where draft might be undefined initially
+    //             if (!draft) return; 
+
+    //             const exists = draft.some((notify: any) => notify.id === notification.id);
+    //             if (!exists) {
+    //                 draft.unshift(notification);
+    //             }
+    //         }
+    //     )
+    // );
+});
+
+    
 
     return () => {
       socket.off("connect");

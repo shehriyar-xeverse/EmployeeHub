@@ -12,7 +12,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 const UserDetails = ({userData,logOut}:any) => {
-  const adminProfile  = true
+
   return (
     <>
       <div className="space-y-4">
@@ -68,13 +68,7 @@ const UserDetails = ({userData,logOut}:any) => {
                     </div>
                   )}
     
-                  {adminProfile && (
-                    <Link 
-                    className="w-full h-8  bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300  text-white"
-                    href="/admin-notification">
-                      Go to Notifications
-                      </Link>
-                  )}
+                
                 </div>
     
                 <div className="my-6 border-t border-gray-800/50"></div>

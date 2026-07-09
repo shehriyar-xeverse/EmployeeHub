@@ -11,12 +11,10 @@ const Notifications = () => {
   const { data: Profile } = useAdminProfileQuery(undefined);
   const [logOutUser] = useLogOutAdminMutation();
   const [updateProfileImg] = useUpdateProfileImgMutation()
-  const { data: notifications } = useGetNotificationsQuery(undefined)
+  const { data: notifications , isLoading } = useGetNotificationsQuery(undefined)
   const [filter, setFilter] = useState('all')
 
-  console.log("notifications",notifications)
-
-  const filteredNotifications = useMemo(() => {
+  const filteredNotifications = useMemo(() => {notifications
     if (!notifications) return []
     if (filter === 'all') return notifications
     return notifications.filter((notif: any) => notif.status === filter)
@@ -26,9 +24,9 @@ const Notifications = () => {
     if (!notifications) return { all: 0, pending: 0, accept: 0, reject: 0 }
     return {
       all: notifications.length,
-      pending: notifications.filter((n: any) => n.status === 'pending').length,
-      accept: notifications.filter((n: any) => n.status === 'accept').length,
-      reject: notifications.filter((n: any) => n.status === 'reject').length,
+      pending: notifications.filter((n: any) => n?.status === 'pending').length,
+      accept: notifications.filter((n: any) => n?.status === 'accept').length,
+      reject: notifications.filter((n: any) => n?.status === 'reject').length,
     }
   }, [notifications])
 
@@ -39,6 +37,8 @@ const Notifications = () => {
         logOutUser={logOutUser}
         navigate={'/admin-login'}
         updateProfileImg={updateProfileImg}
+        isAdmin={true}
+
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -106,6 +106,7 @@ const Notifications = () => {
 
         {/* Notifications List */}
        <NotificationsCards
+       isLoading={isLoading}
        filteredNotifications={filteredNotifications}
        />
       </main>

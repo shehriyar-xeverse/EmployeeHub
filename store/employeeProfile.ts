@@ -53,10 +53,13 @@ export const employeeProfileApi = createApi({
       }),
       invalidatesTags: ["EmployeeProfile"],
     }),
+
+
+
   }),
 });
 
-
+  
 
 
 export const {
@@ -64,5 +67,6 @@ export const {
   useLoginEmployeeMutation,
   useLogOutEmployeeMutation,
   useEmployeeProfileQuery,
-  useUpdateEmployeeProfileImgMutation
+  useUpdateEmployeeProfileImgMutation,
+  
 } = employeeProfileApi;
