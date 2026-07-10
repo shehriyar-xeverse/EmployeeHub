@@ -41,14 +41,12 @@ export const adminApi = createApi({
     // get All admins
     getAdmins: builder.query({
       query: () => "/admins",
-      providesTags: ["Admin"],
     }),
 
 
     // get Profile
     AdminProfile: builder.query({
       query: () => "/admin-profile",
-      providesTags: ["Admin"],
     }),
 
 

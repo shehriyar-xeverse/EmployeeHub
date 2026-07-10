@@ -23,6 +23,7 @@ const Dashboard = () => {
 
 
 
+
   useEffect(() => {
     setAnimateStats(true);
   }, []);
@@ -32,10 +33,9 @@ const Dashboard = () => {
     if (!data) return [];
 
     let employees = [...data].filter((emp: any) =>
-      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.position?.toLowerCase().includes(searchTerm.toLowerCase())
+      emp?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp?.department?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     switch (sortOrder) {
@@ -81,6 +81,8 @@ const maxSalary =
     return { total, departments, avgSalary, maxSalary, totalSalary };
   }, [data]);
   if (error) return <ErrorInterface />
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand z-30  ">

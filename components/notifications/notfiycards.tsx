@@ -51,14 +51,6 @@ const NotificationsCards = ({ filteredNotifications, isLoading }: any) => {
     }
   };
 
-  const getInitials = (name: string) => {
-    if (!name) return 'U';
-    return name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
-  };
-
-
- 
-
 
   return (
     <div>
@@ -86,7 +78,8 @@ const NotificationsCards = ({ filteredNotifications, isLoading }: any) => {
               accept: <CheckCircle className="w-4 h-4 text-green-400" />,
               reject: <X className="w-4 h-4 text-red-400" />
             };
-            // const showButtons = notif.status === 'pending';
+            const disableApprove = notif.status === 'accept';
+            const disableReject = notif.status === 'reject';
 
             return (
               <div
@@ -121,7 +114,7 @@ const NotificationsCards = ({ filteredNotifications, isLoading }: any) => {
                     
                     <div className="flex items-center gap-3 col-span-1 sm:col-span-2 lg:col-span-1">
                       <div className="w-12 h-12 rounded-full  flex items-center justify-center text-white font-bold text-base flex-shrink-0">
-                        {/* {getInitials(notif??.name)} */}
+                        
                         {notif?.profile_image  && (
                         <Image 
                         src={notif?.profile_image || '/avatar.png'}
@@ -185,11 +178,11 @@ const NotificationsCards = ({ filteredNotifications, isLoading }: any) => {
 
                 
 
-                  {/* {showButtons && ()} */}
+                  
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => handleApprove(notif?.id)}
-                        disabled={loading}
+                        disabled={loading || disableApprove}
                         className="px-4 py-2 bg-green-500/10 hover:bg-green-500/20 text-green-400 rounded-lg border border-green-500/20 transition-all duration-300 cursor-pointer text-sm font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <CheckCircle className="w-4 h-4" />
@@ -197,7 +190,7 @@ const NotificationsCards = ({ filteredNotifications, isLoading }: any) => {
                       </button>
                       <button
                         onClick={() => handleReject(notif?.id)}
-                        disabled={rejectLoading}
+                        disabled={rejectLoading  || disableReject}
                         className="px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/20 transition-all duration-300 cursor-pointer text-sm font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <X className="w-4 h-4" />

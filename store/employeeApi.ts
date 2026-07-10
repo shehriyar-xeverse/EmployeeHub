@@ -7,9 +7,9 @@ export const employeeApi = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
     credentials: "include",
   }),
-  refetchOnFocus: false,
-  refetchOnReconnect: false,
-  keepUnusedDataFor: 300,
+  // refetchOnFocus: false,
+  // refetchOnReconnect: false,
+  // keepUnusedDataFor: 300,
 
   tagTypes: ["Employee"],
 
@@ -21,7 +21,7 @@ export const employeeApi = createApi({
         method: "POST",
         body: employeeData,
       }),
-      // invalidatesTags: ["Employee"],
+      
     }),
 
     //fetchSingleEmployee
@@ -29,8 +29,7 @@ export const employeeApi = createApi({
       query: (id) => ({
         url: `/getSingle-Employee/${id}`,
       }),
-      // providesTags: ["Employee"],
-      // keepUnusedDataFor: 300,
+     
     }),
 
     // get ALL Employees
@@ -38,7 +37,7 @@ export const employeeApi = createApi({
       query: () => ({
         url: `/getAllEmployees`,
       }),
-      // providesTags: ["Employee"],
+      
     }),
 
     //deleteEmployee
@@ -47,7 +46,7 @@ export const employeeApi = createApi({
         url: `/delete-Employee/${id}`,
         method: "DELETE",
       }),
-      // invalidatesTags: ["Employee"],
+      
     }),
 
     // update Employee
@@ -57,7 +56,7 @@ export const employeeApi = createApi({
         method: "PUT",
         body: updatedData,
       }),
-      // invalidatesTags: ["Employee"],
+      
     }),
 
 
@@ -68,7 +67,6 @@ export const employeeApi = createApi({
         method: "POST",
         body: employeeData,
       }),
-     
     }),
 
 
@@ -77,15 +75,16 @@ export const employeeApi = createApi({
         url: `/delete-EmployeeReq/${id}`,
         method: "DELETE",
       }),
-      // invalidatesTags: ["Employee"],
     }),
 
-
-     // get Employee Own Request 
+    // get Employee Own Request 
     employeeRequest: builder.query({
       query: () => "/employee-Request",
-      // providesTags: ["EmployeeProfile"],
+      
     }),
+
+
+  
 
   }),
 });

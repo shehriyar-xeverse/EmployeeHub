@@ -41,7 +41,7 @@ export const employeeProfileApi = createApi({
     // get Profile
     employeeProfile: builder.query({
       query: () => "/employee-profile",
-      providesTags: ["EmployeeProfile"],
+      // providesTags: ["EmployeeProfile"],
     }),
 
     // chnage Profile Image  
@@ -51,8 +51,11 @@ export const employeeProfileApi = createApi({
         method: "PUT",
         body: image,
       }),
-      invalidatesTags: ["EmployeeProfile"],
+      // invalidatesTags: ["EmployeeProfile"],
     }),
+
+
+ 
 
 
 
@@ -67,6 +70,6 @@ export const {
   useLoginEmployeeMutation,
   useLogOutEmployeeMutation,
   useEmployeeProfileQuery,
-  useUpdateEmployeeProfileImgMutation,
+  useUpdateEmployeeProfileImgMutation
   
 } = employeeProfileApi;

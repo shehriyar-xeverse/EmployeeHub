@@ -53,7 +53,7 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
   const onSubmit = async (data: EmployeeForm) => {
     try {
       if(userEmail !== data.email){
-        toast.error("User email & Employee does not match", {position : 'top-center'})
+        toast.error("User email & Employee email does not match", {position : 'top-center'})
         return
       }
       const formData = new FormData();
@@ -68,9 +68,9 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
       removeImage();
       setIsModalOpen(false);
       onSuccess?.();
-      toast.success("Employee Successfully Added!", {position : 'top-center'});
+      toast.success("Employee Request Successfully Created!", {position : 'top-center'});
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed", {position : 'top-center'});
+      toast.error(error?.data?.message || "Employee Request Failed!", {position : 'top-center'});
     }
   };
 

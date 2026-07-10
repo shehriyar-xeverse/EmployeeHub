@@ -7,6 +7,8 @@ import EmployeeCard from "./employeeCard";
 const Employee = ({ filteredEmployees, isLoading, error, viewMode , setIsModalOpen}: any) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
+  
+
 
   if (isLoading) {
     return (
