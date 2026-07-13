@@ -86,8 +86,7 @@ export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any)
               src={ userData?.profile_image || "/userAvatar.png"}
               alt={userData?.name || "User"}
             />
-            <AvatarFallback className="bg-gradient-to-br from-purple-600
-             to-purple-800 text-white font-semibold font-quicksand">
+            <AvatarFallback className="bg-purple-900 text-white font-semibold font-quicksand">
               {initials}
             </AvatarFallback>
           </Avatar>

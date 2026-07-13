@@ -86,7 +86,7 @@ const maxSalary =
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand z-30  ">
-          <Header
+      <Header
       Profile={Profile}
       logOutUser={logOutUser}
       navigate={'/admin-login'}

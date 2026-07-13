@@ -21,16 +21,6 @@ const EmployeeCard = ({
 }: any) => {
  
 
-  const getInitials = (name: string) => {
-    return (
-      name
-        ?.split(" ")
-        .map((n: string) => n[0])
-        .join("")
-        .toUpperCase() || "?"
-    );
-  };
-
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
       case "active":
@@ -44,25 +34,15 @@ const EmployeeCard = ({
     }
   };
 
-  const getTenure = () => {
-    if (!employee?.created_at) return "N/A";
-    const start = new Date(employee.created_at);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - start.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const years = Math.floor(diffDays / 365);
-    const months = Math.floor((diffDays % 365) / 30);
-    if (years > 0) return `${years}y ${months}m`;
-    return `${months}m`;
-  };
+
   return (
     <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 overflow-hidden shadow-2xl shadow-purple-500/5">
-      <div className="relative bg-gradient-to-r from-purple-900/30 via-purple-800/20 to-transparent px-6 py-8 sm:px-8 border-b border-gray-800/50">
+      <div className="relative  px-6 py-8 sm:px-8 border-b border-gray-800/50">
         <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
 
         <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6">
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
+            <div className="absolute inset-0  rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
             {/* <div className="relative w-28 h-28 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-3xl font-bold ring-4 ring-purple-500/20 group-hover:ring-purple-500/40 transition-all"> */}
             {employee?.profile_image ? (
               <Image
@@ -71,6 +51,7 @@ const EmployeeCard = ({
                 width={200}
                 height={200}
                 className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110"
+                loading="lazy"
               />
             ) : (
               <Image
@@ -79,6 +60,8 @@ const EmployeeCard = ({
                 width={200}
                 height={200}
                 className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110"
+                loading="lazy"
+
               />
             )}
 
@@ -116,16 +99,13 @@ const EmployeeCard = ({
                 setSelectedEmployee(employee);
                 setIsEditModal(true);
               }}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 cursor-pointer"
-            >
-              <Edit className="w-4 h-4" />
+              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all flex items-center gap-2 shadow-lg cursor-pointer">
               <span className="hidden sm:inline">Edit</span>
             </button>
             <button
               onClick={() => setIsDeleteModalOpen(true)}
               className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-xl transition-all flex items-center gap-2 border border-red-500/20 cursor-pointer"
             >
-              <Trash2 className="w-4 h-4" />
               <span className="hidden sm:inline">Delete</span>
             </button>
           </div>
@@ -144,17 +124,12 @@ const EmployeeCard = ({
       </div>
 
       <div className="p-6 sm:p-8">
-        {/* Stats Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-[#0a0a0a] rounded-xl p-3 text-center border border-gray-800/50">
             <p className="text-2xl font-bold text-purple-400">
               {employee?.salary?.toLocaleString()}
             </p>
             <p className="text-xs text-gray-500 mt-1">Salary</p>
-          </div>
-          <div className="bg-[#0a0a0a] rounded-xl p-3 text-center border border-gray-800/50">
-            <p className="text-2xl font-bold text-blue-400">{getTenure()}</p>
-            <p className="text-xs text-gray-500 mt-1">Tenure</p>
           </div>
           <div className="bg-[#0a0a0a] rounded-xl p-3 text-center border border-gray-800/50">
             <p className="text-2xl font-bold text-green-400">Active</p>
@@ -169,10 +144,8 @@ const EmployeeCard = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-            <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors">
-              <Mail className="w-5 h-5 text-purple-400" />
-            </div>
+          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 ">
+           
             <div className="flex-1 min-w-0">
               <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                 Email Address
@@ -183,10 +156,8 @@ const EmployeeCard = ({
             </div>
           </div>
 
-          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-            <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
-              <Building2 className="w-5 h-5 text-blue-400" />
-            </div>
+          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 ">
+           
             <div>
               <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                 Department
@@ -199,10 +170,8 @@ const EmployeeCard = ({
             </div>
           </div>
 
-          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-            <div className="p-2 bg-yellow-500/10 rounded-lg group-hover:bg-yellow-500/20 transition-colors">
-              <DollarSign className="w-5 h-5 text-yellow-400" />
-            </div>
+          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 ">
+           
             <div>
               <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                 Annual Salary
@@ -216,10 +185,8 @@ const EmployeeCard = ({
             </div>
           </div>
 
-          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-            <div className="p-2 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors">
-              <Calendar className="w-5 h-5 text-indigo-400" />
-            </div>
+          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 ">
+         
             <div>
               <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                 Join Date
@@ -230,10 +197,8 @@ const EmployeeCard = ({
             </div>
           </div>
 
-          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-gray-800/50 hover:border-purple-500/30 transition-all hover:shadow-lg hover:shadow-purple-500/5">
-            <div className="p-2 bg-gray-500/10 rounded-lg group-hover:bg-gray-500/20 transition-colors">
-              <User className="w-5 h-5 text-gray-400" />
-            </div>
+          <div className="group flex items-start gap-3 p-4 bg-[#0a0a0a] rounded-xl 
+            transition-all hover:shadow-lg ">
             <div>
               <p className="text-xs text-gray-500 uppercase tracking-wider font-medium">
                 Employee ID

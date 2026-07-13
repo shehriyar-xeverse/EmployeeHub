@@ -92,10 +92,9 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
           </Button>
         </div>
 
-        {/* Form */}
+        
         <form onSubmit={handleSubmit(onSubmit)} className="p-5 space-y-4 max-h-[calc(90vh-130px)] overflow-y-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Name */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
                 <User className="w-4 h-4 text-purple-400" />
@@ -111,8 +110,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
               />
               {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
             </div>
-
-            {/* Email */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
                 <Mail className="w-4 h-4 text-purple-400" />
@@ -135,7 +132,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
               {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
             </div>
 
-            {/* Department */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-purple-400" />
@@ -153,8 +149,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
                 ))}
               </select>
             </div>
-
-            {/* Salary */}
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-purple-400" />
@@ -212,7 +206,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
                     </button>
                   </div>
                   <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-gray-300 flex items-center gap-2">
-                    <ImageIcon className="w-3.5 h-3.5 text-purple-400" />
                     {imageFile?.name}
                     <span className="text-gray-500">({((imageFile?.size || 0) / 1024).toFixed(1)} KB)</span>
                   </div>
@@ -220,7 +213,7 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
               </div>
             ) : (
               // Upload Area
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
+              <label className="flex flex-col items-center justify-center w-full h-40   border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
                 <div className="p-3.5 bg-purple-500/10 rounded-full group-hover:bg-purple-500/20 transition-all">
                   <Upload className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
                 </div>

@@ -51,8 +51,7 @@ const Notifications = () => {
             <p className="text-gray-400 mt-1">Manage employee requests and notifications</p>
           </div>
         </div>
-
-        {/* Filters */}
+      
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-4 mb-6 backdrop-blur-sm">
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 text-gray-400">
@@ -104,7 +103,6 @@ const Notifications = () => {
           </div>
         </div>
 
-        {/* Notifications List */}
        <NotificationsCards
        isLoading={isLoading}
        filteredNotifications={filteredNotifications}

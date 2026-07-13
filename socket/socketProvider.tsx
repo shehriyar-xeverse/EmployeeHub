@@ -117,7 +117,7 @@ export default function SocketProvider({
         (draft: any) => {
           return draft.filter(
             (notification: any) =>
-              notification.sender_id !== deletedId
+              notification.employee_id !== deletedId
           );
         }
       )

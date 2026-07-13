@@ -211,7 +211,7 @@
                       </button>
                     </div>
                     <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-gray-300 flex items-center gap-2">
-                      <ImageIcon className="w-3.5 h-3.5 text-purple-400" />
+                      
                       {imageFile?.name}
                       <span className="text-gray-500">({((imageFile?.size || 0) / 1024).toFixed(1)} KB)</span>
                     </div>
@@ -219,17 +219,12 @@
                 </div>
               ) : (
                 // Upload Area
-                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
+                <label className="flex flex-col items-center justify-center w-full h-40  border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
                   <div className="p-3.5 bg-purple-500/10 rounded-full group-hover:bg-purple-500/20 transition-all">
                     <Upload className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
                   </div>
                   <p className="mt-3 text-sm font-medium text-gray-300 group-hover:text-purple-400 transition-colors">
                     Click to upload employee image
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1 flex items-center gap-1.5">
-                    <span>PNG, JPG or JPEG</span>
-                    <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                    <span>Max 2MB</span>
                   </p>
                   <input type="file"
                   accept="image/*" className="hidden"
@@ -244,8 +239,6 @@
               )}
               {errors.employee_image && <p className="text-red-400 text-xs mt-1">Employee Image is Required</p>}
             </div>
-
-            {/* Actions */}
             <div className="flex gap-3 pt-2 border-t border-gray-800/50">
               <Button
                 type="button"
@@ -260,7 +253,7 @@
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-xl text-white font-medium shadow-lg shadow-purple-500/20 disabled:opacity-50 flex items-center justify-center gap-2 h-12  cursor-pointer"
+                className="flex-1 px-4 py-3 bg-purple-900 hover:bg-purple-700 rounded-xl text-white font-medium shadow-lg flex items-center justify-center gap-2 h-12  cursor-pointer"
               >
                 {isLoading ? (
                   <>

@@ -13,10 +13,7 @@ const [loginUser] = useLoginAdminMutation()
   navigation={'/admin-dashboard'}
   singUpLink={'/admin-register'}
   heading={'Admin'}
-  
   />
-
-
  </div>
   );
 };

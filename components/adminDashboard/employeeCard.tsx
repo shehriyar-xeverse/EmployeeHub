@@ -8,7 +8,6 @@ import { formatDate } from "../common/formatDate";
 
 const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
  const router = useRouter()
-  
   return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
            {filteredEmployees?.map((employee: any) => (
@@ -17,21 +16,22 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                onClick={() => router.push(`/admin-employees/${employee.id}`)}
                onMouseEnter={() => setHoveredId(employee.id)}
                onMouseLeave={() => setHoveredId(null)}
-               className="group bg-gradient-to-br from-[#1a1a1a] to-[#121212] border border-gray-800/50 rounded-2xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer relative overflow-hidden"
+               className="group bg-gradient-to-br from-[#1a1a1a] to-[#121212] border border-gray-800/50 rounded-2xl p-6 transition-all duration-300 cursor-pointer relative overflow-hidden"
              >
-               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/5 group-hover:via-purple-500/0 group-hover:to-purple-500/5 transition-all duration-500"></div>
+               
                
                <div className="relative z-10 flex flex-col items-center text-center">
                  <div className="relative">
                    <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                    {employee?.profile_image ? (
-                      <Image
+                    <Image
                      src={employee?.profile_image  || '/userAvatar.png'}
                      alt={employee.name}
                      width={200}
                      height={200}
-                     className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110"
+                     loading='lazy'
+                     className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700  transition-all duration-300 group-hover:scale-110"
                    />
                    ) : (
                     <Image
@@ -39,7 +39,8 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                      alt={employee.name}
                      width={200}
                      height={200}
-                     className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700 group-hover:border-purple-500 transition-all duration-300 group-hover:scale-110"
+                     loading='lazy'
+                     className="w-20 h-20 rounded-full object-cover relative z-10 border-2 border-gray-700  transition-all duration-300 group-hover:scale-110"
                    />
                    )
                    }

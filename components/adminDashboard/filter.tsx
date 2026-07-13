@@ -8,17 +8,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpDown } from "lucide-react";
+import { FilterProps } from "@/types/employee";
 
-interface FilterProps {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  setIsModalOpen: (open: boolean) => void;
-  sortOrder: string;
-  setSortOrder: (order: string) => void;
-  viewMode: "grid" | "list";
-  setViewMode: (mode: "grid" | "list") => void;
-  totalResults: number;
-}
+
 
 const Filter = ({  
   searchTerm,
@@ -28,7 +20,6 @@ const Filter = ({
   setSortOrder,
   viewMode,
   setViewMode,
-  totalResults,
 }: FilterProps) => {
   return (
     <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-5 mb-6 backdrop-blur-sm shadow-xl">
@@ -65,37 +56,37 @@ const Filter = ({
               <SelectContent className="bg-[#1a1a1a] border border-gray-700/50 text-gray-200 rounded-xl">
                 <SelectItem
                   value="default"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer "
                 >
                    Default
                 </SelectItem>
                 <SelectItem
                   value="name-asc"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer "
                 >
-                   Name: A → Z
+                    A → Z
                 </SelectItem>
                 <SelectItem
                   value="name-desc"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer"
                 >
-                   Name: Z → A
+                    Z → A
                 </SelectItem>
                 <SelectItem
                   value="salary-asc"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer "
                 >
-                   Salary: Low → High
+                    Low → High
                 </SelectItem>
                 <SelectItem
                   value="salary-desc"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer "
                 >
-                   Salary: High → Low
+                   High → Low
                 </SelectItem>
                 <SelectItem
                   value="department"
-                  className="cursor-pointer hover:bg-purple-600/20 hover:text-white focus:bg-purple-600/20 focus:text-white data-[highlighted]:bg-purple-600/20 data-[highlighted]:text-white"
+                  className="cursor-pointer"
                 >
                    Department
                 </SelectItem>
@@ -108,7 +99,7 @@ const Filter = ({
               onClick={() => setViewMode("grid")}
               className={`p-2.5 rounded-lg transition-all cursor-pointer ${
                 viewMode === "grid"
-                  ? "bg-purple-600/20 text-purple-400 ring-1 ring-purple-500/30"
+                  ? "bg-purple-600/20 text-purple-400 ring-1 ring-purple-200/30"
                   : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/30"
               }`}
               title="Grid View"
@@ -130,22 +121,12 @@ const Filter = ({
 
           <Button
             onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-700 hover:to-purple-800 flex items-center gap-2 whitespace-nowrap h-[52px] cursor-pointer font-semibold px-6 rounded-xl transition-all hover:scale-105 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 cursor-pointer"
+            className="bg-purple-900 hover:bg-purple-700   flex items-center gap-2 whitespace-nowrap h-[52px] cursor-pointer font-semibold px-6 rounded-xl transition-all  shadow-lg  cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">Add Employee</span>
             <span className="sm:hidden">Add</span>
           </Button>
-        </div>
-      </div>
-
-
-      <div className="mt-4 flex items-center gap-3 text-sm">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
-          <span className="text-gray-400">
-            <span className="text-white font-semibold">{totalResults}</span> employee{totalResults !== 1 ? 's' : ''} found
-          </span>
         </div>
       </div>
     </div>

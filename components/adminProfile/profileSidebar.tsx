@@ -29,7 +29,6 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
         toast.error("Logout failed", { position: "top-center" });
       }
     };
-    
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
@@ -107,7 +106,6 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
         >
           <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-gray-800/50 bg-[#0f0f0f]/95 backdrop-blur-sm  overflow-y-hidden">
             <div className="flex items-center gap-2">
-              <div className="w-1 h-6 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
               <h2 className="text-lg font-semibold text-white font-quicksand">
                 Profile
               </h2>
@@ -126,7 +124,7 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
           <div className="flex-1 overflow-y-auto p-6 pb-8 font-quicksand   overflow-hidden">
             <div className="flex flex-col items-center text-center mb-8">
               <div className="relative flex flex-col items-center">
-                {/* Purple Glow */}
+                
                 <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-2xl opacity-0 hover:opacity-100 transition-opacity pointer-events-none -z-10" />
                 <div className="relative">
                   <Avatar className="w-24 h-24 border-[3px] border-purple-500 shadow-lg shadow-purple-500/20 transition-all duration-300">
@@ -137,15 +135,13 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
                         "/userAvatar.png"
                       }
                       alt={userData?.name || "User"}
+                      loading="lazy"
                     />
                     <AvatarFallback className="bg-gradient-to-br from-purple-600 to-purple-800 text-white text-2xl font-bold">
                       {initials}
                     </AvatarFallback>
                   </Avatar>
 
-                  {/* Camera Button */}
-                  <label className="absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-600 border-2 border-[#1a1a1a] hover:bg-purple-700 transition cursor-pointer z-30">
-                    <CameraIcon className="w-4 h-4 text-white" />
 
                     <input
                       ref={fileInputRef}
@@ -154,7 +150,7 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
                       className="hidden"
                       onChange={handleImageChange}
                     />
-                  </label>
+
                 </div>
 
                 <h3 className="mt-4 text-xl font-semibold text-white">
@@ -180,7 +176,7 @@ export const  ProfileSidebar = forwardRef<HTMLDivElement, ProfileSidebarProps>(
                       type="button"
                       onClick={handleSaveImage}
                       disabled={isLoading}
-                      className="flex-1 h-10 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-lg cursor-pointer"
+                      className="flex-1 h-10  bg-purple-900 rounded-lg cursor-pointer"
                     >
                       {isLoading ? (
                         <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

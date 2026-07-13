@@ -44,16 +44,13 @@ const Employee = ({ filteredEmployees, isLoading, error, viewMode , setIsModalOp
     return (
       <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-16 text-center">
         <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 rounded-full bg-purple-500/10 flex items-center justify-center">
-            <Users className="w-12 h-12 text-purple-400" />
-          </div>
         </div>
         <h3 className="text-2xl font-semibold text-white mb-2">No Employees Found</h3>
         <p className="text-gray-400 max-w-md mx-auto">
         </p>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="mt-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all  cursor-pointer"
+          className="mt-6 px-6 py-3 bg-purple-900 hover:bg-purple-700   font-bold text-white rounded-xl transition-all  cursor-pointer"
         >
           Add Employee
         </button>

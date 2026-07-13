@@ -58,7 +58,6 @@ const EmployeeDetails = () => {
           href="/admin-dashboard"
           className="inline-flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-all group mb-4"
         >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span className="font-medium">Back to Dashboard</span>
         </Link>
         <EmployeeCard
