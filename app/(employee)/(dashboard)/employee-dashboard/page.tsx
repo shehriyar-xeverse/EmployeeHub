@@ -22,6 +22,7 @@ const EmployeeDashboard = () => {
   const { data: OwnRequest, isLoading: OwnRequestLoading } = useEmployeeRequestQuery(undefined);
   const employeeReq = OwnRequest?.data;
 
+  console.log("employeeReq",OwnRequest)
   // Loading UI
   if (OwnRequestLoading) {
     return (

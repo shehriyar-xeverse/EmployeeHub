@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
@@ -18,6 +18,8 @@ import { toast } from "sonner";
 const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,data }: any) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [file,setFile] =  useState<null | File>(null)
+
   const Id = data?.data?.id;
   const userEmail =  data?.data?.email;
  
@@ -50,12 +52,24 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
     setValue("employee_image", null as any);
   };
 
+  const fileOnChnage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files  && e.target.files.length > 0) {
+      const selectedFiles = e.target.files[0]
+      setFile(selectedFiles)
+    }
+  }
+
+
+
+
+
   const onSubmit = async (data: EmployeeForm) => {
     try {
       if(userEmail !== data.email){
         toast.error("User email & Employee email does not match", {position : 'top-center'})
         return
       }
+
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("email", data.email);
@@ -63,6 +77,9 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
       formData.append("salary", data.salary.toString());
       formData.append("employee_image", imageFile!);
       formData.append("created_by_id", Id);
+      if (file) {
+      formData.append('file', file);
+      }
       await addEmployeeReq(formData).unwrap();
       reset();
       removeImage();
@@ -75,6 +92,10 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
   };
 
   const employeeImage = register("employee_image");
+  const employeeFile =  register("employee_file")
+
+
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
@@ -82,7 +103,7 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
 
         <div className="flex items-center justify-between p-5 border-b border-gray-800/50">
           <div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold  text-purple-700  ">
               Create Employee Request
             </h2>
             <p className="text-sm text-gray-400">Fill in the details for employee request </p>
@@ -172,14 +193,16 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
             </div>
           </div>
 
-        
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
           <div className="space-y-1">
             <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
               <User2Icon className="w-4 h-4 text-purple-400" />
               Employee Image *
             </label>
 
-            {imagePreview ? (
+            {imagePreview ? ( 
               <div className="relative group">
                 <div className="relative w-full h-40 rounded-xl overflow-hidden border-2 border-purple-500/30 bg-[#0a0a0a]">
                   <img src={imagePreview} alt="Employee" className="w-full h-full object-cover" />
@@ -205,10 +228,6 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
                       <X className="w-5 h-5 text-white" />
                     </button>
                   </div>
-                  <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs text-gray-300 flex items-center gap-2">
-                    {imageFile?.name}
-                    <span className="text-gray-500">({((imageFile?.size || 0) / 1024).toFixed(1)} KB)</span>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -220,11 +239,7 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
                 <p className="mt-3 text-sm font-medium text-gray-300 group-hover:text-purple-400 transition-colors">
                   Click to upload employee image
                 </p>
-                <p className="text-xs text-gray-500 mt-1 flex items-center gap-1.5">
-                  <span>PNG, JPG or JPEG</span>
-                  <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                  <span>Max 2MB</span>
-                </p>
+              
                 <input type="file"
                  accept="image/*" className="hidden"
                  {...employeeImage}
@@ -239,7 +254,43 @@ const CreateEmployeeReq = ({ setIsModalOpen,onSuccess,addEmployeeReq,isLoading,d
             {errors.employee_image && <p className="text-red-400 text-xs mt-1">Employee Image is Required</p>}
           </div>
 
-          {/* Actions */}
+
+
+              <div className="space-y-1">
+            <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
+              <User2Icon className="w-4 h-4 text-purple-400" />
+              Employee Resume *
+            </label>
+
+
+              <label className="flex flex-col items-center justify-center w-full h-40   border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
+                <div className="p-3.5 bg-purple-500/10 rounded-full group-hover:bg-purple-500/20 transition-all">
+                  <Upload className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
+                </div>
+                <p className="mt-3 text-sm font-medium text-gray-300 group-hover:text-purple-400 transition-colors">
+                  Click to upload employee resume 
+                </p>
+              
+                <input 
+                    {...employeeFile}
+                      onChange={(e) => {
+                        employeeFile.onChange(e);
+                        fileOnChnage(e);
+                      }}
+                type="file"
+                 accept=".pdf, .doc, .docx, .xls, .xlsx" className="hidden"
+                 />
+              </label>
+            {errors.employee_file && <p className="text-red-400 text-xs mt-1">Employee Resumen is Required</p>}
+          </div>
+
+
+
+        </div>
+
+      
+
+
           <div className="flex gap-3 pt-2 border-t border-gray-800/50">
             <Button
               type="button"

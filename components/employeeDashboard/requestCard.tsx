@@ -88,6 +88,12 @@ const RequestCard = ({employeeReq,Profile,logOutUser,setIsModalOpen,isModalOpen}
                 </div>
               </div>
             )}
+            
+             <iframe
+        src={employeeReq?.file_url}
+        className="w-full h-full  border border-gray-100"
+        title="PDF Document Viewer"
+      />
     
             {/* Profile Details */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

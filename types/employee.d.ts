@@ -4,6 +4,7 @@
   department: string;
   salary: number;
   employee_image : any,
+  employee_file : any
 };
 
 

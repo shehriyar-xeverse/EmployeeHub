@@ -49,7 +49,7 @@ const EmployeeDetails = () => {
       logOutUser={logOutUser}
       navigate={'/admin-login'}
       updateProfileImg={updateProfileImg}
-            isAdmin={true}
+      isAdmin={true}
       
       />
       
