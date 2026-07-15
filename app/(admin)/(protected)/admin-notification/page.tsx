@@ -14,6 +14,8 @@ const Notifications = () => {
   const { data: notifications , isLoading } = useGetNotificationsQuery(undefined)
   const [filter, setFilter] = useState('all')
 
+
+
   const filteredNotifications = useMemo(() => {notifications
     if (!notifications) return []
     if (filter === 'all') return notifications

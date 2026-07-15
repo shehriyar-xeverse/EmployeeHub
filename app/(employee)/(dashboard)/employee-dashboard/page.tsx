@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import {User,Briefcase,Calendar,Mail,Building2,Plus,Clock,CheckCircle,XCircle,AlertCircle,FileText} from "lucide-react";
+import {Plus,FileText} from "lucide-react";
 import Header from "@/components/common/header";
 import {
   useEmployeeProfileQuery,
@@ -22,9 +22,9 @@ const EmployeeDashboard = () => {
   const { data: OwnRequest, isLoading: OwnRequestLoading } = useEmployeeRequestQuery(undefined);
   const employeeReq = OwnRequest?.data;
 
-  console.log("employeeReq",OwnRequest)
+  // console.log("employeeReq",OwnRequest)
   // Loading UI
-  if (OwnRequestLoading) {
+  if (OwnRequestLoading) {  
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] font-quicksand">
         <Header

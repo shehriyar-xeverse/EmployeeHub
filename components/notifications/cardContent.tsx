@@ -146,6 +146,12 @@ const CardContent = ({filteredNotifications,handleApprove,handleReject,loading,r
                     </span>
                   )}
                 </div>
+
+                <iframe
+                src={notif.employee_file}
+                className="h-[650px] w-[500px]  my-10 border border-gray-100  text-white"
+                title="PDF Document Viewer"  />
+
               </div>
             </div>
           )})}

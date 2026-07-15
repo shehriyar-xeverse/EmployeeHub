@@ -33,6 +33,8 @@ const EmployeeDetails = () => {
   } = useGetAllEmployeesQuery(undefined);
   const employee = employees?.find((emp: any) => emp.id === Number(id));
 
+  
+
   useEffect(() => {
   if (!isLoading && employees && !employee && !redirected.current) {
     redirected.current = true;

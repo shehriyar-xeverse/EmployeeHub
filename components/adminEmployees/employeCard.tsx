@@ -22,8 +22,25 @@ const EmployeeCard = ({
       default:
         return "bg-purple-500/20 text-purple-400 border-purple-500/20";
     }
-  };
+  }
 
+
+  const handleDownload = async () => {
+  try {
+    const response = await fetch(employee.employee_file);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "EmployeeDocument.pdf";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("Download failed", err);
+  }
+};
 
   return (
     <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 overflow-hidden shadow-2xl shadow-purple-500/5">
@@ -190,7 +207,23 @@ const EmployeeCard = ({
               </p>
             </div>
           </div>
+
+
+        
         </div>
+          <iframe
+                 src={`${employee?.employee_file}#toolbar=0&navpanes=0&scrollbar=0`}
+                className="h-[650px] w-[500px]  my-10 border border-gray-100  text-white"
+                title="PDF Document Viewer"  
+                />
+
+
+                <Button
+              onClick={handleDownload}
+              className=" h-12 bg-purple-800  hover:bg-purple-600  text-white px-4 py-4 rounded  cursor-pointer  "
+            >
+              Download Document
+            </Button>
       </div>
     </div>
   );

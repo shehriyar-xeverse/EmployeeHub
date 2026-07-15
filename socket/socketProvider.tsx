@@ -127,7 +127,7 @@ export default function SocketProvider({
 
     // ***************** For Employe Requests APIs ***********************
 
-    socket.on("reqEmployee", ({ employee, notification }) => {
+    socket.on("reqEmployee", ({ employee, notification}) => {     
       const updateNotificationCache = (notification: any) => (draft: any) => {
         if (!draft) return;
         const exists = draft.some(
@@ -137,6 +137,7 @@ export default function SocketProvider({
           draft.unshift(notification);
         }
       };
+
       dispatch(
         notificationApi.util.updateQueryData(
           "getNotifications",
@@ -145,16 +146,19 @@ export default function SocketProvider({
         ),
       );
 
-      const updateEmployeeCache = (employee: any) => (draft: any) => {
-        draft.data = employee;
+      const updateEmployeeCache = (employee : any) => (draft: any) => {
+        draft.data = employee
       };
       dispatch(
         employeeApi.util.updateQueryData(
           "employeeRequest",
           undefined,
-          updateEmployeeCache(employee),
+          updateEmployeeCache(employee)
         ),
       );
+
+
+ 
     });
 
     // approve notifications

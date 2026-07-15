@@ -1,5 +1,4 @@
-import {User,Briefcase,Calendar,Mail,Building2,Plus,Clock,CheckCircle,XCircle,AlertCircle,FileText} from "lucide-react";
-import React from 'react'
+import {User,Briefcase,Calendar,Mail,Building2,Plus,Clock,CheckCircle,XCircle,AlertCircle} from "lucide-react";
 import Header from "../common/header";
 import { Button } from "../ui/button";
 import Image from "next/image";
@@ -7,13 +6,13 @@ import CreateEmployeeReq from "./createEmployeeReq";
 import { useAddEmployeeReqMutation } from "@/store/employeeApi";
 import { formatDate } from "../common/formatDate";
 import { useUpdateEmployeeProfileImgMutation } from "@/store/employeeProfile";
+import { useEffect, useState } from "react";
 
 const RequestCard = ({employeeReq,Profile,logOutUser,setIsModalOpen,isModalOpen}:any) => {
     const requestStatus = employeeReq?.status || null;
     const [addEmployeeReq, { isLoading: Adding }] = useAddEmployeeReqMutation();
     const [updateEmployeeProfileImg] = useUpdateEmployeeProfileImgMutation();
-      
-
+   
       const statusMap: any = {
         Pending: {
           icon: Clock,
@@ -40,6 +39,9 @@ const RequestCard = ({employeeReq,Profile,logOutUser,setIsModalOpen,isModalOpen}
     
       const statusInfo = requestStatus ? statusMap[requestStatus] : null;
       const StatusIcon = statusInfo?.icon || null;
+
+
+   
 
 
   return (
@@ -89,12 +91,12 @@ const RequestCard = ({employeeReq,Profile,logOutUser,setIsModalOpen,isModalOpen}
               </div>
             )}
             
-             <iframe
-        src={employeeReq?.file_url}
-        className="w-full h-full  border border-gray-100"
-        title="PDF Document Viewer"
-      />
-    
+        <iframe
+        src={employeeReq.employee_file}
+        className="h-[400px]  my-10 border border-gray-100  text-white"
+        title="PDF Document Viewer"  />
+
+
             {/* Profile Details */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-6">
@@ -123,7 +125,7 @@ const RequestCard = ({employeeReq,Profile,logOutUser,setIsModalOpen,isModalOpen}
                 </div>
               </div>
     
-              {/* Account Status */}
+              
               <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-6">
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <AlertCircle className="w-5 h-5 text-purple-400" />
