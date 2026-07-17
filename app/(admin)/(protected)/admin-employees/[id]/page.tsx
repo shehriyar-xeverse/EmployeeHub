@@ -1,17 +1,18 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useGetAllEmployeesQuery } from "@/store/employeeApi";
-import UpdateModal from "@/components/adminDashboard/updateModal";
-import DeleteModal from "@/components/adminDashboard/delelteModal";
-import Header from "@/components/common/header";
 import { useRouter } from "next/navigation";
-import LoadingEmployee from "@/components/adminEmployees/loadingEmloyee";
-import ErrorHandler from "@/components/adminEmployees/errorHandler";
-import EmployeeCard from "@/components/adminEmployees/employeCard";
 import { useAdminProfileQuery, useLogOutAdminMutation, useUpdateProfileImgMutation } from "@/store/admin";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/components/common/header"));
+const EmployeeCard = dynamic(() => import("@/components/adminEmployees/employeCard"));
+const DeleteModal = dynamic(() => import("@/components/adminDashboard/delelteModal"));
+const UpdateModal = dynamic(() => import("@/components/adminDashboard/updateModal"));
+const LoadingEmployee = dynamic(() => import("@/components/adminEmployees/loadingEmloyee"));
+const ErrorHandler = dynamic(() => import("@/components/adminEmployees/errorHandler"));
+
 
 const EmployeeDetails = () => {
   const { data: Profile } = useAdminProfileQuery(undefined);
@@ -51,14 +52,11 @@ const EmployeeDetails = () => {
       logOutUser={logOutUser}
       navigate={'/admin-login'}
       updateProfileImg={updateProfileImg}
-      isAdmin={true}
-      
-      />
-      
+      isAdmin={true}/>
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link
           href="/admin-dashboard"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-all group mb-4"
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-teal-400 transition-all group mb-4"
         >
           <span className="font-medium">Back to Dashboard</span>
         </Link>

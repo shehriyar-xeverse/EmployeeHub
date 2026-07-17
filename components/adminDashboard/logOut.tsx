@@ -1,16 +1,20 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { ProfileSidebar } from "../adminProfile/profileSidebar";
 
-export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any) {
+const LogOutButton = ({
+  Profile,
+  logOutUser,
+  navigate,
+  updateProfileImg,
+}: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-
 
   useEffect(() => {
     setMounted(true);
@@ -79,14 +83,14 @@ export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any)
       >
         <div className="relative">
           <div
-            className={`absolute inset-0 bg-purple-500/20 blur-xl rounded-full transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+            className={`absolute inset-0 bg-teal-500/20 blur-xl rounded-full transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
           ></div>
-          <Avatar className="border-2 border-gray-700 hover:border-purple-500 transition-colors duration-300 relative z-10 w-10 h-10">
+          <Avatar className="border-2 border-gray-700 hover:border-teal-500 transition-colors duration-300 relative z-10 w-10 h-10">
             <AvatarImage
-              src={ userData?.profile_image || "/userAvatar.png"}
+              src={userData?.profile_image || "/userAvatar.png"}
               alt={userData?.name || "User"}
             />
-            <AvatarFallback className="bg-purple-900 text-white font-semibold font-quicksand">
+            <AvatarFallback className="bg-teal-900 text-white font-semibold font-quicksand">
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -100,7 +104,7 @@ export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any)
             onClose={() => setIsOpen(false)}
             userData={userData}
             initials={initials}
-            logOutUser={logOutUser} 
+            logOutUser={logOutUser}
             navigate={navigate}
             updateProfileImg={updateProfileImg}
           />,
@@ -108,4 +112,6 @@ export function LogOutButton({Profile,logOutUser,navigate,updateProfileImg}:any)
         )}
     </>
   );
-}
+};
+
+export default React.memo(LogOutButton);

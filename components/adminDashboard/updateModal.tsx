@@ -9,14 +9,12 @@ import { useUpdateEmployeeMutation } from "@/store/employeeApi";
 
 const UpdateModal = ({ setIsEditModal, employee }: any) => {
   const [updateEmployee, { isLoading }] = useUpdateEmployeeMutation();
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<EmployeeForm>();
-
   const onSubmit = async (data: EmployeeForm) => {
     try {
       await updateEmployee({
@@ -62,10 +60,9 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-        {/* Header */}
         <div className="sticky top-0 bg-[#1a1a1a]/95 backdrop-blur-sm z-10 flex items-center justify-between p-6 border-b border-gray-800/50">
           <div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
               Update Employee
             </h2>
             <p className="text-sm text-gray-400 mt-1">Edit employee information</p>
@@ -77,14 +74,12 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
             <X className="w-5 h-5 text-gray-400 hover:text-white" />
           </Button>
         </div>
-
-        {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Name */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                <User className="w-4 h-4 text-purple-400" />
+                <User className="w-4 h-4 text-teal-400" />
                 Full Name *
               </label>
               <input
@@ -93,18 +88,16 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
                 {...register("name", { required: "Name is required" })}
                 className={`w-full px-4 py-3 bg-[#0a0a0a] border ${
                   errors.name ? 'border-red-500' : 'border-gray-700/50'
-                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all`}
+                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all`}
                 placeholder="John Doe"
               />
               {errors.name && (
                 <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
               )}
             </div>
-
-            {/* Email */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                <Mail className="w-4 h-4 text-purple-400" />
+                <Mail className="w-4 h-4 text-teal-400" />
                 Email Address *
               </label>
               <input
@@ -119,24 +112,22 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
                 })}
                 className={`w-full px-4 py-3 bg-[#0a0a0a] border ${
                   errors.email ? 'border-red-500' : 'border-gray-700/50'
-                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all`}
+                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all`}
                 placeholder="john@gmail.com"
               />
               {errors.email && (
                 <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
               )}
             </div>
-
-            {/* Department */}
             <div className="space-y-1.5">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-purple-400" />
+                <Building2 className="w-4 h-4 text-teal-400" />
                 Department *
               </label>
               <select
                 required
                 {...register("department", { required: "Department is required" })}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-gray-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all"
               >
                 <option value="">Select Department</option>
                 <option value="Engineering">Engineering</option>
@@ -148,11 +139,9 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
                 <option value="Operations">Operations</option>
               </select>
             </div>
-
-            {/* Salary */}
             <div className="space-y-1.5 ">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                <DollarSign className="w-4 h-4 text-purple-400" />
+                <DollarSign className="w-4 h-4 text-teal-400" />
                 Salary (USD) *
               </label>
               <input
@@ -167,7 +156,7 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
                 })}
                 className={`w-full px-4 py-3 bg-[#0a0a0a] border ${
                   errors.salary ? 'border-red-500' : 'border-gray-700/50'
-                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all`}
+                } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all`}
                 placeholder="60000"
               />
               {errors.salary && (
@@ -175,8 +164,6 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
               )}
             </div>
           </div>
-
-          {/* Actions */}
           <div className="flex gap-3 pt-4 border-t border-gray-800/50">
             <Button
               type="button"
@@ -189,7 +176,7 @@ const UpdateModal = ({ setIsEditModal, employee }: any) => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 rounded-xl text-white font-medium transition-all shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer h-10"
+              className="flex-1 px-4 py-3 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 rounded-xl text-white font-medium transition-all shadow-lg shadow-teal-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer h-10"
             >
               {isLoading ? (
                 <>

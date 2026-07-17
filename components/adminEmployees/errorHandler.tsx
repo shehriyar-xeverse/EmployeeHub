@@ -26,4 +26,4 @@ const ErrorHandler = () => {
   )
 }
 
-export default ErrorHandler
+export default  React.memo(ErrorHandler) 

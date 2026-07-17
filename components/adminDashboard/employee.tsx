@@ -50,7 +50,7 @@ const Employee = ({ filteredEmployees, isLoading, error, viewMode , setIsModalOp
         </p>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="mt-6 px-6 py-3 bg-purple-900 hover:bg-purple-700   font-bold text-white rounded-xl transition-all  cursor-pointer"
+          className="mt-6 px-6 py-3 bg-teal-900 hover:bg-purple-700   font-bold text-white rounded-xl transition-all  cursor-pointer"
         >
           Add Employee
         </button>

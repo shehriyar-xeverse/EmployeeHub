@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "EmployeeHub",
   description: "EmployeeHub is a application that allows you to manage your employees and their information.",
     icons: {
-    icon: "/lo.svg", 
+    icon: "/logo.svg", 
   },
 };
 

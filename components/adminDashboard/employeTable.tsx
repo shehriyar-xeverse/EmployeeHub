@@ -59,7 +59,7 @@ const EmployeeTable = ({ filteredEmployees }: any) => {
                     )}
 
                     <div>
-                      <p className="font-medium text-white group-hover:text-purple-400 transition-colors">
+                      <p className="font-medium text-white group-hover:text-teal-400 transition-colors">
                         {employee.name}
                       </p>
                       <p className="text-sm text-gray-400 sm:hidden">

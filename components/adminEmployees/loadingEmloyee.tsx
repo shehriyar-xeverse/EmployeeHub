@@ -1,3 +1,4 @@
+import React from "react"
 import Header from "../common/header"
 
 const LoadingEmployee = () => {
@@ -24,4 +25,4 @@ const LoadingEmployee = () => {
   )
 }
 
-export default LoadingEmployee
+export default   React.memo(LoadingEmployee) 

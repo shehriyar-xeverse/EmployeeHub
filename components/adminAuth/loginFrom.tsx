@@ -6,7 +6,7 @@ import { Inputs } from "@/types/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {  Eye, EyeOff, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const LoginForm = ({
  loginUser,
@@ -48,9 +48,9 @@ heading
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8 font-quicksand relative overflow-hidden">
       <div className="max-w-md w-full relative z-10">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] p-8 rounded-2xl border border-gray-800/50 shadow-2xl shadow-purple-500/5 backdrop-blur-sm">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] p-8 rounded-2xl border border-gray-800/50 shadow-2xl shadow-teal-500/5 backdrop-blur-sm">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-purple-400">
+          <h2 className="text-4xl font-bold text-teal-400">
             Welcome {heading}
           </h2>
           <p className="mt-2 text-gray-400 text-sm">Sign in to manage your workforce</p>
@@ -62,13 +62,13 @@ heading
                   Email Address
                 </label>
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-purple-500/0 rounded-xl transition-all duration-300 group-focus-within:from-purple-500/10 group-focus-within:to-purple-500/5"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 to-teal-500/0 rounded-xl transition-all duration-300 group-focus-within:from-teal-500/10 group-focus-within:to-teal-500/5"></div>
                   <input
                     type="email"
                     {...register("email", { required: "Email is required" })}
                     className={`w-full pl-11 pr-4 py-3.5 bg-[#0a0a0a] border ${
                       errors.email ? 'border-red-500' : 'border-gray-700/50'
-                    } rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all relative z-10`}
+                    } rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all relative z-10`}
                     placeholder="you@company.com"
                   />
                 </div>
@@ -87,13 +87,13 @@ heading
                   </label>
                 </div>
                 <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-purple-500/0 rounded-xl transition-all duration-300 group-focus-within:from-purple-500/10 group-focus-within:to-purple-500/5"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 to-teal-500/0 rounded-xl transition-all duration-300 group-focus-within:from-teal-500/10 group-focus-within:to-teal-500/5"></div>
                   <input
                     type={showPassword ? "text" : "password"}
                     {...register("password", { required: "Password is required" })}
                     className={`w-full pl-11 pr-12 py-3.5 bg-[#0a0a0a] border ${
                       errors.password ? 'border-red-500' : 'border-gray-700/50'
-                    } rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all relative z-10`}
+                    } rounded-xl text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-transparent transition-all relative z-10`}
                     placeholder="Enter your password"
                   />
                   <button
@@ -115,7 +115,7 @@ heading
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12  bg-purple-900 hover:bg-purpple-700 text-white font-semibold rounded-xl  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer group"
+              className="w-full h-12  bg-teal-900 hover:bg-purpple-700 text-white font-semibold rounded-xl  shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer group"
             >
               {isLoading ? (
                 <>
@@ -134,7 +134,7 @@ heading
                 Don't have an account?{" "}
                 <Link
                   href={singUpLink}
-                  className="font-medium text-purple-400 hover:text-purple-300 transition-colors hover:underline inline-flex items-center gap-1"
+                  className="font-medium text-teal-400 hover:text-teal-300 transition-colors hover:underline inline-flex items-center gap-1"
                 >
                   Create one
                   <ArrowRight className="w-3 h-3" />
@@ -148,4 +148,4 @@ heading
   );
 };
 
-export default LoginForm;
+export default  React.memo(LoginForm)

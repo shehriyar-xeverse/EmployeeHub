@@ -1,11 +1,10 @@
 "use client"
-import LoginForm from "@/components/adminAuth/loginFrom";
 import { useLoginAdminMutation } from "@/store/admin";
-
+import dynamic from "next/dynamic";
+const  LoginForm = dynamic(() => import('@/components/adminAuth/loginFrom'))
 
 const Login = () => {
 const [loginUser] = useLoginAdminMutation()
-  
   return (
  <div>
   <LoginForm 

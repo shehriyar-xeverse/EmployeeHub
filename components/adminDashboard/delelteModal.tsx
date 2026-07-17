@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 const DeleteModal = ({ setIsDeleteModalOpen, employee,setIsDeleting,isDeleting}: any) => {
   const [deleteEmployee, { isLoading: deletingLoading }] = useDeleteEmployeeMutation();
   const router = useRouter();
-
  const handleDelete = async (id: number) => {
   try {
     setIsDeleting(true)
@@ -41,7 +40,7 @@ const DeleteModal = ({ setIsDeleteModalOpen, employee,setIsDeleting,isDeleting}:
           <p className="text-gray-400 mb-1">
             Are you sure you want to delete
           </p>
-          <p className="text-purple-400 font-semibold text-lg mb-6">
+          <p className="text-teal-400 font-semibold text-lg mb-6">
             {employee?.name}
           </p>
 

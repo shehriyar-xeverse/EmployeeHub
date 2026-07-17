@@ -1,10 +1,11 @@
 "use client"
 import { Bell} from 'lucide-react';
-import { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useApproveNotifyMutation, useRejectNotifyMutation } from '@/store/notifications';
 import { toast } from 'sonner';
 import { useAdminProfileQuery } from '@/store/admin';
-import CardContent from './cardContent';
+import dynamic from "next/dynamic";
+const CardContent = dynamic(() => import("./cardContent"))
 
 const NotificationsCards = ({ filteredNotifications }: any) => {
   const { data: Profile } = useAdminProfileQuery(undefined);
@@ -14,7 +15,7 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
   const [rejectLoading, setRejectLoading] = useState(false);
   const adminId = Profile?.data.id;
 
-  const handleApprove = async (id: any) => {
+  const handleApprove =  useCallback(() => {async (id: any) => {
     try {
       setLoading(true);
       const response = await approveNotify({ id, adminId });
@@ -30,8 +31,10 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setLoading(false);
     }
   };
+  },[])  
 
-  const handleReject = async (id: any) => {
+  const handleReject = useCallback(() => {
+    async (id: any) => {
     try {
       setRejectLoading(true);
       const response = await rejectNotify({ id, adminId });
@@ -47,14 +50,15 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setRejectLoading(false);
     }
   };
+  },[])  
 
   return (
     <div className="space-y-4">
       {filteredNotifications?.length === 0 ? (
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] rounded-2xl border border-gray-800/50 p-16 text-center">
           <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 rounded-full bg-purple-500/10 flex items-center justify-center">
-              <Bell className="w-12 h-12 text-purple-400" />
+            <div className="w-24 h-24 rounded-full bg-teal-500/10 flex items-center justify-center">
+              <Bell className="w-12 h-12 text-teal-400" />
             </div>
           </div>
           <h3 className="text-2xl font-semibold text-white mb-2">No Notifications</h3>
@@ -71,4 +75,4 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
   );
 };
 
-export default NotificationsCards;
+export default   React.memo(NotificationsCards) ;

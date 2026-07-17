@@ -81,7 +81,7 @@
 
           <div className="flex items-center justify-between p-5 border-b border-gray-800/50">
             <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
                 Add New Employee
               </h2>
               <p className="text-sm text-gray-400">Fill in the details to add a new team member</p>
@@ -97,7 +97,7 @@
               {/* Name */}
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                  <User className="w-4 h-4 text-purple-400" />
+                  <User className="w-4 h-4 text-teal-400" />
                   Full Name *
                 </label>
                 <input
@@ -105,7 +105,7 @@
                   {...register("name", { required: "Name is required" })}
                   className={`w-full px-4 py-2.5 bg-[#0a0a0a] border ${
                     errors.name ? "border-red-500" : "border-gray-700/50"
-                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50`}
+                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50`}
                   placeholder="John Doe"
                 />
                 {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
@@ -114,7 +114,7 @@
               {/* Email */}
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-purple-400" />
+                  <Mail className="w-4 h-4 text-teal-400" />
                   Email Address *
                 </label>
                 <input
@@ -128,7 +128,7 @@
                   })}
                   className={`w-full px-4 py-2.5 bg-[#0a0a0a] border ${
                     errors.email ? "border-red-500" : "border-gray-700/50"
-                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50`}
+                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50`}
                   placeholder="john@gmail.com"
                 />
                 {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
@@ -137,12 +137,12 @@
               {/* Department */}
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-purple-400" />
+                  <Building2 className="w-4 h-4 text-teal-400" />
                   Department *
                 </label>
                 <select
                   {...register("department", { required: "Department is required" })}
-                  className="w-full px-4 py-2.5 bg-[#0a0a0a] border border-gray-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                  className="w-full px-4 py-2.5 bg-[#0a0a0a] border border-gray-700/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-teal-500/50"
                 >
                   <option value="">Select Department</option>
                   {["Engineering", "Marketing", "Sales", "HR", "Finance", "Design", "Operations"].map((dept) => (
@@ -156,7 +156,7 @@
               {/* Salary */}
               <div className="space-y-1">
                 <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-purple-400" />
+                  <DollarSign className="w-4 h-4 text-teal-400" />
                   Salary (USD) *
                 </label>
                 <input
@@ -170,7 +170,7 @@
                   })}
                   className={`w-full px-4 py-2.5 bg-[#0a0a0a] border ${
                     errors.salary ? "border-red-500" : "border-gray-700/50"
-                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50`}
+                  } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50`}
                   placeholder="60000"
                 />
                 {errors.salary && <p className="text-red-400 text-xs mt-1">{errors.salary.message}</p>}
@@ -180,16 +180,16 @@
           
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-300 flex items-center gap-2">
-                <User2Icon className="w-4 h-4 text-purple-400" />
+                <User2Icon className="w-4 h-4 text-teal-400" />
                 Employee Image *
               </label>
 
               {imagePreview ? (
                 <div className="relative group">
-                  <div className="relative w-full h-40 rounded-xl overflow-hidden border-2 border-purple-500/30 bg-[#0a0a0a]">
+                  <div className="relative w-full h-40 rounded-xl overflow-hidden border-2 border-teal-500/30 bg-[#0a0a0a]">
                     <img src={imagePreview} alt="Employee" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                      <label className="cursor-pointer p-2.5 bg-purple-600/90 hover:bg-purple-700 rounded-xl transition-all hover:scale-110">
+                      <label className="cursor-pointer p-2.5 bg-teal-600/90 hover:bg-teal-700 rounded-xl transition-all hover:scale-110">
                         <Pencil className="w-5 h-5 text-white" />
                         <input 
                         type="file" 
@@ -219,11 +219,11 @@
                 </div>
               ) : (
                 // Upload Area
-                <label className="flex flex-col items-center justify-center w-full h-40  border-gray-700 hover:border-purple-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
-                  <div className="p-3.5 bg-purple-500/10 rounded-full group-hover:bg-purple-500/20 transition-all">
-                    <Upload className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
+                <label className="flex flex-col items-center justify-center w-full h-40  border-gray-700 hover:border-teal-500 rounded-xl bg-[#0a0a0a] hover:bg-[#111] transition-all cursor-pointer group">
+                  <div className="p-3.5 bg-teal-500/10 rounded-full group-hover:bg-teal-500/20 transition-all">
+                    <Upload className="w-8 h-8 text-teal-400 group-hover:scale-110 transition-transform" />
                   </div>
-                  <p className="mt-3 text-sm font-medium text-gray-300 group-hover:text-purple-400 transition-colors">
+                  <p className="mt-3 text-sm font-medium text-gray-300 group-hover:text-teal-400 transition-colors">
                     Click to upload employee image
                   </p>
                   <input type="file"
@@ -253,7 +253,7 @@
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 px-4 py-3 bg-purple-900 hover:bg-purple-700 rounded-xl text-white font-medium shadow-lg flex items-center justify-center gap-2 h-12  cursor-pointer"
+                className="flex-1 px-4 py-3 bg-teal-900 hover:bg-teal-700 rounded-xl text-white font-medium shadow-lg flex items-center justify-center gap-2 h-12  cursor-pointer"
               >
                 {isLoading ? (
                   <>

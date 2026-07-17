@@ -5,14 +5,14 @@ import {
 } from "lucide-react";
 import { formatDate } from "../common/formatDate";
 import { Button } from "../ui/button";
-import Link from "next/link";
+
 
 const UserDetails = ({userData,logOut}:any) => {
 
   return (
     <>
       <div className="space-y-4">
-                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300">
+                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-teal-500/30 transition-all duration-300">
                     <div className="flex items-center gap-3">
                       
                       <div className="flex-1 min-w-0">
@@ -22,7 +22,7 @@ const UserDetails = ({userData,logOut}:any) => {
                     </div>
                   </div>
     
-                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300">
+                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-teal-500/30 transition-all duration-300">
                     <div className="flex items-center gap-3">
                      
                       <div className="flex-1 min-w-0">
@@ -32,7 +32,7 @@ const UserDetails = ({userData,logOut}:any) => {
                     </div>
                   </div>
     
-                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300">
+                  <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-teal-500/30 transition-all duration-300">
                     <div className="flex items-center gap-3">
                     
                       <div className="flex-1 min-w-0">
@@ -45,7 +45,7 @@ const UserDetails = ({userData,logOut}:any) => {
                   </div>
     
                   {userData?.department && (
-                    <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-purple-500/30 transition-all duration-300">
+                    <div className="bg-[#0a0a0a] rounded-xl p-4 border border-gray-800/50 hover:border-teal-500/30 transition-all duration-300">
                       <div className="flex items-center gap-3">
                        
                         <div className="flex-1 min-w-0">

@@ -22,7 +22,7 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                
                <div className="relative z-10 flex flex-col items-center text-center">
                  <div className="relative">
-                   <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                   <div className="absolute inset-0 bg-teal-500/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                    {employee?.profile_image ? (
                     <Image
@@ -46,13 +46,13 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                    }
                  
                    {employee.position && (
-                     <div className="absolute -bottom-1 -right-1 z-20 w-7 h-7 bg-purple-600 rounded-full flex items-center justify-center border-2 border-[#1a1a1a]">
+                     <div className="absolute -bottom-1 -right-1 z-20 w-7 h-7 bg-teal-600 rounded-full flex items-center justify-center border-2 border-[#1a1a1a]">
                        <Briefcase className="w-3.5 h-3.5 text-white" />
                      </div>
                    )}
                  </div>
                  
-                 <h3 className="mt-4 text-lg font-semibold text-gray-200 group-hover:text-purple-400 transition-colors">
+                 <h3 className="mt-4 text-lg font-semibold text-gray-200 group-hover:text-teal-400 transition-colors">
                    {employee.name}
                  </h3>
                  
@@ -66,7 +66,7 @@ const EmployeeCard = ({filteredEmployees,setHoveredId}:any) => {
                  </p>
                  
                  <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-                   <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs border border-purple-500/20 flex items-center gap-1">
+                   <span className="px-3 py-1 bg-teal-500/10 text-teal-400 rounded-full text-xs border border-teal-500/20 flex items-center gap-1">
                      <Building2 className="w-3 h-3" />
                      {employee.department}
                    </span>

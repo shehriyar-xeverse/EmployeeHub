@@ -1,6 +1,7 @@
 "use client"
-import RegisterForm from '@/components/adminAuth/registerForm';
 import { useSignUpEmployeeMutation } from '@/store/employeeProfile';
+import dynamic from "next/dynamic";
+const  RegisterForm = dynamic(() => import('@/components/adminAuth/registerForm'))
 
 const Register = () => {
   const [signUpEmployee]  = useSignUpEmployeeMutation()
