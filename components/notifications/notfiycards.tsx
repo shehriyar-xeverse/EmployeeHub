@@ -31,7 +31,7 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setLoading(false);
     }
   };
-  },[])  
+  },[approveNotify])  
 
   const handleReject = useCallback(() => {
     async (id: any) => {
@@ -50,7 +50,7 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setRejectLoading(false);
     }
   };
-  },[])  
+  },[rejectNotify])  
 
   return (
     <div className="space-y-4">
