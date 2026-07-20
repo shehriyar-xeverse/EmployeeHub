@@ -17,8 +17,6 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
 
   const handleApprove =  async (id: any) => {
     try {
-      console.log("click Approve Notify")
-      console.log("click Approve id",id)
       setLoading(true);
       const response = await approveNotify({ id, adminId });
       if (response.error) {
@@ -37,8 +35,6 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
 
   const handleReject = async (id: any) => {
     try {
-       console.log("click reject Notify")
-      console.log("click reject id",id)
       setRejectLoading(true);
       const response = await rejectNotify({ id, adminId });
       if (response.error) {
