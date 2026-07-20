@@ -15,7 +15,7 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
   const [rejectLoading, setRejectLoading] = useState(false);
   const adminId = Profile?.data.id;
 
-  const handleApprove =  useCallback(() => {async (id: any) => {
+  const handleApprove =  async (id: any) => {
     try {
       console.log("click Approve Notify")
       console.log("click Approve id",id)
@@ -33,10 +33,9 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setLoading(false);
     }
   };
-  },[approveNotify])  
 
-  const handleReject = useCallback(() => {
-    async (id: any) => {
+
+  const handleReject = async (id: any) => {
     try {
        console.log("click reject Notify")
       console.log("click reject id",id)
@@ -54,7 +53,7 @@ const NotificationsCards = ({ filteredNotifications }: any) => {
       setRejectLoading(false);
     }
   };
-  },[rejectNotify])  
+ 
 
   return (
     <div className="space-y-4">

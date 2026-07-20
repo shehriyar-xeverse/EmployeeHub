@@ -33,6 +33,10 @@ const Dashboard = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [animateStats, setAnimateStats] = useState(false);
 
+
+
+  
+
   useEffect(() => {
     setAnimateStats(true);
   }, []);
@@ -89,6 +93,9 @@ const Dashboard = () => {
         : 0;
     return { total, departments, avgSalary, maxSalary, totalSalary };
   }, [data]);
+
+
+  console.log("admin Profile",Profile)
 
   if (error) return <ErrorInterface />;
 
