@@ -5,18 +5,10 @@ import { useForm } from "react-hook-form";
 import { RegisterInputs } from "@/types/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useRegisterAdminMutation } from "@/store/admin";
 import {
-  User,
-  Mail,
-  Lock,
   Eye,
   EyeOff,
   ArrowRight,
-  Sparkles,
-  Check,
-  Shield,
-  Users,
 } from "lucide-react";
 import React, { useState } from "react";
 

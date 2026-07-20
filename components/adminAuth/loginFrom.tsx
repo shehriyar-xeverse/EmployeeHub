@@ -51,7 +51,7 @@ heading
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#121212] p-8 rounded-2xl border border-gray-800/50 shadow-2xl shadow-teal-500/5 backdrop-blur-sm">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-teal-400">
-            Welcome {heading}
+            Welcome {heading} 
           </h2>
           <p className="mt-2 text-gray-400 text-sm">Sign in to manage your workforce</p>
         </div>
