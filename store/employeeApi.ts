@@ -7,12 +7,8 @@ export const employeeApi = createApi({
     baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api`,
     credentials: "include",
   }),
-  // refetchOnFocus: false,
-  // refetchOnReconnect: false,
-  // keepUnusedDataFor: 300,
 
   tagTypes: ["Employee"],
-
   endpoints: (builder) => ({
     // add Employee
     addEmployee: builder.mutation({
@@ -80,12 +76,7 @@ export const employeeApi = createApi({
     // get Employee Own Request 
     employeeRequest: builder.query({
       query: () => "/employee-Request",
-      
     }),
-
-
-  
-
   }),
 });
 

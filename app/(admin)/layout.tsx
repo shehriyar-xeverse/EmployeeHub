@@ -8,16 +8,16 @@ export default async function AdminLayout({
 }) {
   const cookieStore = await cookies();
 
-  const adminToken = cookieStore.get("adminToken")?.value;
-  const employeeToken = cookieStore.get("employeeToken")?.value;
+  // const adminToken = cookieStore.get("adminToken")?.value;
+  // const employeeToken = cookieStore.get("employeeToken")?.value;
   // if (!adminToken) {
   //   redirect("/admin-login");
   // }
 
   
-  if (employeeToken) {
-    redirect("/employee-dashboard");
-  }
+  // if (employeeToken) {
+  //   redirect("/employee-dashboard");
+  // }
 
   return <>{children}</>;
 }

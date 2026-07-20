@@ -6,12 +6,12 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("employeeToken")?.value;
+  // const cookieStore = await cookies();
+  // const token = cookieStore.get("employeeToken")?.value;
 
-  if (!token) {
-    redirect("/login");
-  }
+  // if (!token) {
+  //   redirect("/login");
+  // }
 
   return <>{children}</>;
 }

@@ -6,20 +6,14 @@ export default async function EmployeeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
+  // const cookieStore = await cookies();
 
-  const employeeToken = cookieStore.get("employeeToken")?.value;
-  const adminToken = cookieStore.get("adminToken")?.value;
+  // const adminToken = cookieStore.get("adminToken")?.value;
 
-  
-  // if (!employeeToken) {
-  //   redirect("/login");
+
+  // if (adminToken) {
+  //   redirect("/admin-dashboard");
   // }
-
-
-  if (adminToken) {
-    redirect("/admin-dashboard");
-  }
-
+ww
   return <>{children}</>;
 }
