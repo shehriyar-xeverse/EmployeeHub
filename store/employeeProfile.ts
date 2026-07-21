@@ -21,6 +21,15 @@ export const employeeProfileApi = createApi({
       invalidatesTags: ["EmployeeProfile"],
     }),
 
+      // verified OTP
+   verfiyEmployeeOTP: builder.mutation({
+    query: (data) => ({
+      url: "/verified-otp-employee",
+      method: "POST",
+      body: data,
+    }),
+  }),
+
     loginEmployee: builder.mutation({
       query: (loginData) => ({
         url: "/login-employee",
@@ -29,6 +38,8 @@ export const employeeProfileApi = createApi({
       }),
       invalidatesTags: ["EmployeeProfile"],
     }),
+
+
 
     logOutEmployee: builder.mutation<void, void>({
       query: () => ({
@@ -41,7 +52,6 @@ export const employeeProfileApi = createApi({
     // get Profile
     employeeProfile: builder.query({
       query: () => "/employee-profile",
-      // providesTags: ["EmployeeProfile"],
     }),
 
     // chnage Profile Image  
@@ -51,7 +61,6 @@ export const employeeProfileApi = createApi({
         method: "PUT",
         body: image,
       }),
-      // invalidatesTags: ["EmployeeProfile"],
     }),
 
 
@@ -70,6 +79,7 @@ export const {
   useLoginEmployeeMutation,
   useLogOutEmployeeMutation,
   useEmployeeProfileQuery,
-  useUpdateEmployeeProfileImgMutation
+  useUpdateEmployeeProfileImgMutation,
+  useVerfiyEmployeeOTPMutation
   
 } = employeeProfileApi;

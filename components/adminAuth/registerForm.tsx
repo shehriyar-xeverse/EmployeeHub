@@ -13,45 +13,49 @@ import {
 import React, { useState } from "react";
 
 const RegisterForm = ({
-  navigation,
-  registerUser,
   loginLink,
   heading,
+  handleSubmit,
+  onSubmit,
+  errors,
+  register,
+  isLoading
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<RegisterInputs>();
-  const router = useRouter();
-  const onSubmit = async (data: RegisterInputs) => {
-    const { name, email, password } = data;
+  // const [steps , setSteps] = useState(1)
 
-    setIsLoading(true);
-    try {
-      const response = await registerUser({
-        name,
-        email,
-        password,
-      }).unwrap();
-      toast.success("Account created successfully!", {
-        position: "top-center",
-      });
-      router.push(navigation);
-    } catch (error: any) {
-      console.log(error);
-      toast.error(error?.data?.message || "Registration failed", {
-        position: "top-center",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   reset,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm<RegisterInputs>();
+  // const router = useRouter();
+  // const onSubmit = async (data: RegisterInputs) => {
+  //   const { name, email, password } = data;
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await registerUser({
+  //       name,
+  //       email,
+  //       password,
+  //     }).unwrap();
+  //     toast.success("Account created successfully!", {
+  //       position: "top-center",
+  //     });
+  //     router.push(navigation);
+  //   } catch (error: any) {
+  //     console.log(error);
+  //     toast.error(error?.data?.message || "Registration failed", {
+  //       position: "top-center",
+  //     });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8 font-quicksand relative overflow-hidden">

@@ -7,21 +7,21 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Clock, CheckCircle, Loader2 } from "lucide-react";
 
 
 const OTPVerification = ({
-  email = "user@example.com",
-  onResendOTP,
-  onVerifyOTP,
-  navigate = "/dashboard",
+  email,
+  handleResendOTP,
+  handleVerifyOTP,
+  otp,
+  setOtp,
+  isLoading
 }: any) => {
-  const [otp, setOtp] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
-  const [timer, setTimer] = useState(30);
+  const [timer, setTimer] = useState(120);
   const [canResend, setCanResend] = useState(false);
   const router = useRouter();
 
@@ -37,47 +37,6 @@ const OTPVerification = ({
     }
   }, [timer]);
 
-  const handleVerify = async () => {
-    if (otp.length !== 6) {
-      toast.error("Please enter complete 6-digit OTP", { position: "top-center" });
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      if (onVerifyOTP) {
-        await onVerifyOTP(otp);
-      }
-      toast.success("OTP Verified Successfully!", { position: "top-center" });
-      router.push(navigate);
-    } catch (error: any) {
-      toast.error(error?.message || "Invalid OTP. Please try again.", { 
-        position: "top-center" 
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleResend = async () => {
-    if (!canResend) return;
-
-    setIsResending(true);
-    try {
-      if (onResendOTP) {
-        await onResendOTP();
-      }
-      toast.success("OTP resent successfully!", { position: "top-center" });
-      setTimer(30);
-      setCanResend(false);
-    } catch (error: any) {
-      toast.error(error?.message || "Failed to resend OTP", { 
-        position: "top-center" 
-      });
-    } finally {
-      setIsResending(false);
-    }
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0a0a] via-[#0d0d0d] to-[#0a0a0a] py-12 px-4 sm:px-6 lg:px-8 font-quicksand relative overflow-hidden">
@@ -90,7 +49,7 @@ const OTPVerification = ({
             <h2 className="text-3xl font-bold bg-gradient-to-r from-teal-400 to-teal-500 bg-clip-text text-transparent">
               OTP Verification
             </h2>
-            <p className="mt-2 text-gray-400 text-sm">
+            <p className="mt-2 text-gray-400 text-sm"> x
               Enter the 6-digit OTP sent to{" "}
               <span className="text-teal-400 font-medium">{email}</span>
             </p>
@@ -126,7 +85,7 @@ const OTPVerification = ({
               </span>
             </div>
             <button
-              onClick={handleResend}
+              onClick={handleResendOTP}
               disabled={!canResend || isResending}
               className={`text-sm font-medium transition-all duration-300 ${
                 canResend && !isResending
@@ -145,8 +104,8 @@ const OTPVerification = ({
             </button>
           </div>
           <Button
-            onClick={handleVerify}
-            disabled={isLoading || otp.length !== 6}
+            onClick={handleVerifyOTP}
+            disabled={isLoading}
             className="w-full h-12 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-teal-500/30 hover:shadow-teal-500/40 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer group"
           >
             {isLoading ? (
@@ -165,7 +124,7 @@ const OTPVerification = ({
             <p className="text-sm text-gray-400">
               Didn't receive OTP?{" "}
               <button
-                onClick={handleResend}
+                onClick={handleResendOTP}
                 disabled={!canResend || isResending}
                 className={`font-medium transition-colors hover:underline ${
                   canResend && !isResending

@@ -20,6 +20,16 @@ export const adminApi = createApi({
       invalidatesTags: ["Admin"],
     }),
 
+
+    // verified OTP
+   verfiyAdminOTP: builder.mutation({
+    query: (data) => ({
+      url: "/verified-otp-admin",
+      method: "POST",
+      body: data,
+    }),
+  }),
+
     loginAdmin: builder.mutation({
       query: (loginData) => ({
         url: "/login-Admin",
@@ -72,4 +82,5 @@ export const {
   useGetAdminsQuery,
   useAdminProfileQuery,
   useUpdateProfileImgMutation,
+  useVerfiyAdminOTPMutation
 } = adminApi;
